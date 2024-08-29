@@ -99,7 +99,6 @@ protected:
 	::godot::List<::godot::PropertyInfo> plist_owned;
 
 	void _postinitialize();
-	virtual void _notificationv(int32_t p_what, bool p_reversed = false) {}
 
 	Wrapped(const StringName p_godot_class);
 	Wrapped(GodotObject *p_godot_object);
@@ -392,11 +391,6 @@ public:                                                                         
 		_gde_binding_free_callback,                                                                                                                                                    \
 		_gde_binding_reference_callback,                                                                                                                                               \
 	};                                                                                                                                                                                 \
-                                                                                                                                                                                       \
-protected:                                                                                                                                                                             \
-	virtual void _notificationv(int32_t p_what, bool p_reversed = false) override {                                                                                                    \
-		m_class::notification_bind(this, p_what, p_reversed);                                                                                                                          \
-	}                                                                                                                                                                                  \
                                                                                                                                                                                        \
 private:
 
