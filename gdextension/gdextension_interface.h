@@ -1343,9 +1343,6 @@ typedef GDExtensionBool (*GDExtensionInterfaceVariantHasKey)(GDExtensionConstVar
  *
  * Gets the object instance ID from a variant of type GDEXTENSION_VARIANT_TYPE_OBJECT.
  *
- * If the variant isn't of type GDEXTENSION_VARIANT_TYPE_OBJECT, then zero will be returned.
- * The instance ID will be returned even if the object is no longer valid - use `object_get_instance_by_id()` to check if the object is still valid.
- *
  * @param p_self A pointer to the Variant.
  *
  * @return The instance ID for the contained object.
