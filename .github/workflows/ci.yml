@@ -1,8 +1,6 @@
 name: Continuous integration
-
 on:
-  push:
-  pull_request:
+  workflow_call:
 
 env:
   # Only used for the cache key. Increment version to force clean build.
@@ -14,7 +12,7 @@ env:
   LC_ALL: en_US.UTF-8
 
 concurrency:
-  group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}
+  group: ci-${{ github.actor }}-${{ github.head_ref || github.run_number }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -97,6 +95,7 @@ jobs:
     env:
       SCONS_CACHE: ${{ github.workspace }}/.scons-cache/
       EM_VERSION: 3.1.39
+      EM_CACHE_FOLDER: emsdk-cache
 
     steps:
       - name: Checkout
@@ -123,14 +122,14 @@ jobs:
           link-to-sdk: true
 
       - name: Web dependencies
-        if: ${{ matrix.platform == 'web' }}
+        if: matrix.platform == 'web'
         uses: mymindstorm/setup-emsdk@v14
         with:
-          version: ${{env.EM_VERSION}}
-          no-cache: true
+          version: ${{ env.EM_VERSION }}
+          actions-cache-folder: ${{ env.EM_CACHE_FOLDER }}
 
       - name: Setup MinGW for Windows/MinGW build
-        if: ${{ matrix.platform == 'windows' && matrix.flags == 'use_mingw=yes' }}
+        if: matrix.platform == 'windows' && matrix.flags == 'use_mingw=yes'
         uses: egor-tensin/setup-mingw@v2
         with:
           version: 12.2.0
