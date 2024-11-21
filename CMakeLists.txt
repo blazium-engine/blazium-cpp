@@ -89,7 +89,7 @@ find_package(Python3 3.4 REQUIRED) # pathlib should be present
 project( godot-cpp
         VERSION 4.3
         DESCRIPTION "C++ bindings for the Godot Engine's GDExtensions API."
-        HOMEPAGE_URL "https://github.com/blazium-engine/godot-cpp"
+        HOMEPAGE_URL "https://github.com/blazium-engine/blazium-cpp"
         LANGUAGES CXX)
 
 godotcpp_generate()

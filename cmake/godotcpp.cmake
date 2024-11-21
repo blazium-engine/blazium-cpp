@@ -177,47 +177,40 @@ function( godotcpp_generate )
         set(GODOT_SYSTEM_HEADERS_ATTRIBUTE SYSTEM)
     endif ()
 
-    #[[ Configure Binding Variables ]]
-    # Generate Binding Parameters (True|False)
-    set( USE_TEMPLATE_GET_NODE "False" )
-    if( GODOT_GENERATE_TEMPLATE_GET_NODE )
-        set( USE_TEMPLATE_GET_NODE "True" )
+    #[[ Generate Bindings ]]
+    if(NOT DEFINED BITS)
+        set(BITS 32)
+        if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+            set(BITS 64)
+        endif(CMAKE_SIZEOF_VOID_P EQUAL 8)
     endif()
 
-    # Bits (32|64)
-    math( EXPR BITS "${CMAKE_SIZEOF_VOID_P} * 8" ) # CMAKE_SIZEOF_VOID_P refers to target architecture.
-
-    # API json File
     set(GODOT_GDEXTENSION_API_FILE "${GODOT_GDEXTENSION_DIR}/extension_api.json")
-    if( GODOT_CUSTOM_API_FILE )  # User-defined override.
+    if (NOT "${GODOT_CUSTOM_API_FILE}" STREQUAL "")  # User-defined override.
         set(GODOT_GDEXTENSION_API_FILE "${GODOT_CUSTOM_API_FILE}")
     endif()
 
-    # Build Profile
-    if( GODOT_BUILD_PROFILE )
-        message( STATUS "Using build profile to trim api file")
-        message(  "\tBUILD_PROFILE = '${GODOT_BUILD_PROFILE}'")
-        message(  "\tAPI_SOURCE = '${GODOT_GDEXTENSION_API_FILE}'")
-        build_profile_generate_trimmed_api(
-                "${GODOT_BUILD_PROFILE}"
-                "${GODOT_GDEXTENSION_API_FILE}"
-                "${CMAKE_CURRENT_BINARY_DIR}/extension_api.json" )
-        set( GODOT_GDEXTENSION_API_FILE "${CMAKE_CURRENT_BINARY_DIR}/extension_api.json" )
+    # Code Generation option
+    if(GODOT_GENERATE_TEMPLATE_GET_NODE)
+        set(GENERATE_BINDING_PARAMETERS "True")
+    else()
+        set(GENERATE_BINDING_PARAMETERS "False")
     endif()
 
-    message( STATUS "GODOT_GDEXTENSION_API_FILE = '${GODOT_GDEXTENSION_API_FILE}'")
+    execute_process(COMMAND "${Python3_EXECUTABLE}" "-c" "import binding_generator; binding_generator.print_file_list('${GODOT_GDEXTENSION_API_FILE}', '${CMAKE_CURRENT_BINARY_DIR}', headers=True, sources=True)"
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+            OUTPUT_VARIABLE GENERATED_FILES_LIST
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
 
-    # generate the file list to use
-    binding_generator_get_file_list( GENERATED_FILES_LIST
-            "${GODOT_GDEXTENSION_API_FILE}"
-            "${CMAKE_CURRENT_BINARY_DIR}" )
-
-    binding_generator_generate_bindings(
-            "${GODOT_GDEXTENSION_API_FILE}"
-            "${USE_TEMPLATE_GET_NODE}"
-            "${BITS}"
-            "${GODOT_PRECISION}"
-            "${CMAKE_CURRENT_BINARY_DIR}" )
+    add_custom_command(OUTPUT ${GENERATED_FILES_LIST}
+            COMMAND "${Python3_EXECUTABLE}" "-c" "import binding_generator; binding_generator.generate_bindings('${GODOT_GDEXTENSION_API_FILE}', '${GENERATE_BINDING_PARAMETERS}', '${BITS}', '${GODOT_PRECISION}', '${CMAKE_CURRENT_BINARY_DIR}')"
+            VERBATIM
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+            MAIN_DEPENDENCY ${GODOT_GDEXTENSION_API_FILE}
+            DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/binding_generator.py
+            COMMENT "Generating bindings"
+    )
 
     ### Platform is derived from the toolchain target
     # See GeneratorExpressions PLATFORM_ID and CMAKE_SYSTEM_NAME

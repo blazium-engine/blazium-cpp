@@ -39,6 +39,12 @@ function( windows_generate TARGET_NAME )
             >
     )
 
+    target_compile_options( ${TARGET_NAME}
+        PUBLIC
+            $<${IS_MSVC}:
+                $<IF:${STATIC_CPP},/MT,/MD>$<${IS_DEV}:d> # Link microsoft runtime
+            >
+    )
     target_link_options( ${TARGET_NAME}
             PUBLIC
 
