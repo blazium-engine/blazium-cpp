@@ -15,6 +15,7 @@ foreach( TARGET_ALIAS template_debug template_release editor )
     add_library( ${TARGET_NAME} SHARED EXCLUDE_FROM_ALL )
 
 set( OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/project/bin/" )
+set( DEV_TAG "$<$<BOOL:${GODOT_DEV_BUILD}>:.dev>" )
 
     target_link_libraries( ${TARGET_NAME} PRIVATE ${LINK_TARGET} )
 
@@ -27,7 +28,7 @@ set( OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/project/bin/" )
     set( DEV_TAG "$<$<BOOL:${GODOT_DEV_BUILD}>:.dev>" )
 
         PREFIX "lib"
-        OUTPUT_NAME "gdexample.${GODOT_PLATFORM}.${GODOT_TARGET}.${GODOT_ARCH}"
+        OUTPUT_NAME "gdexample.${GODOT_PLATFORM}.${GODOT_TARGET}${DEV_TAG}.${GODOT_ARCH}"
 )
 
 if( CMAKE_SYSTEM_NAME STREQUAL Darwin )
@@ -54,7 +55,7 @@ if( CMAKE_SYSTEM_NAME STREQUAL Darwin )
             RUNTIME_OUTPUT_DIRECTORY "$<1:${OUTPUT_DIR}>"
             PDB_OUTPUT_DIRECTORY     "$<1:${OUTPUT_DIR}>" #MSVC Only, ignored on other platforms
 
-            OUTPUT_NAME "gdexample.macos.${TEST_TARGET}"
+            OUTPUT_NAME "gdexample.macos.${TEST_TARGET}${DEV_TAG}"
             SUFFIX ""
 
             # Some IDE's respect this property to logically group targets
