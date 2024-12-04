@@ -93,6 +93,7 @@ project( godot-cpp
         HOMEPAGE_URL "https://github.com/blazium-engine/blazium-cpp"
         LANGUAGES CXX)
 
+compiler_detection()
 godotcpp_generate()
 
 # Conditionally enable the godot-cpp.test.<target> integration testing targets

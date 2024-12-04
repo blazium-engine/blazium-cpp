@@ -2,9 +2,10 @@
 Common Compiler Flags
 ---------------------
 
-This file contains a single function to configure platform agnostic compiler
-flags like optimization levels, warnings, and features. For platform specific
-flags look to each of the ``cmake/<platform>.cmake`` files.
+This file contains host platform toolchain and target platform agnostic
+configuration. It includes flags like optimization levels, warnings, and
+features. For target platform specific flags look to each of the
+``cmake/<platform>.cmake`` files.
 
 ]=======================================================================]
 #Generator Expression Helpers
@@ -70,7 +71,8 @@ function( common_compiler_flags TARGET_NAME )
 
         # MSVC only
         $<${IS_MSVC}:
-            "/MP ${PROC_N}"
+            # /MP isn't valid for clang-cl with msvc frontend
+            $<$<CXX_COMPILER_ID:MSVC>:/MP${PROC_N}>
             /W4
 
             # Disable warnings which we don't plan to fix.
