@@ -35,6 +35,7 @@ The CMake equivalent is below.
 ]=======================================================================]
 
 include( cmake/godotcpp.cmake )
+
 godotcpp_options()
 
 #[=======================================================================[.rst:
@@ -94,5 +95,12 @@ project( godot-cpp
 
 godotcpp_generate()
 
-# Test Example
-add_subdirectory( test )
+# Conditionally enable the godot-cpp.test.<target> integration testing targets
+if( GODOT_ENABLE_TESTING )
+    add_subdirectory( test )
+endif()
+
+# If this is the top level CMakeLists.txt, Generators which honor the
+# USE_FOLDERS flag will organize godot-cpp targets under the subfolder
+# 'godot-cpp'. This is enable by default from CMake version 3.26
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)

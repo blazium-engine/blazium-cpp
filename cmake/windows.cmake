@@ -60,5 +60,5 @@ function( windows_generate TARGET_NAME )
             $<${IS_CLANG}:-lstdc++>
     )
 
-    common_compiler_flags( ${TARGET_NAME} )
+    common_compiler_flags()
 endfunction()

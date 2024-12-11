@@ -215,7 +215,7 @@ function( godotcpp_generate )
     ### Platform is derived from the toolchain target
     # See GeneratorExpressions PLATFORM_ID and CMAKE_SYSTEM_NAME
     set( SYSTEM_NAME
-            $<$<PLATFORM_ID:Android>:android.${ANDROID_ABI}>
+            $<$<PLATFORM_ID:Android>:android>
             $<$<PLATFORM_ID:iOS>:ios>
             $<$<PLATFORM_ID:Linux>:linux>
             $<$<PLATFORM_ID:Darwin>:macos>
@@ -233,7 +233,8 @@ function( godotcpp_generate )
     endif()
 
     ### Define our godot-cpp library targets
-    foreach ( TARGET_NAME template_debug template_release editor )
+    foreach ( TARGET_ALIAS template_debug template_release editor )
+        set( TARGET_NAME "godot-cpp.${TARGET_ALIAS}" )
 
         # Useful genex snippits used in subsequent genex's
         set( IS_RELEASE "$<STREQUAL:${TARGET_NAME},template_release>")
@@ -275,28 +276,31 @@ function( godotcpp_generate )
 
                 # Things that are handy to know for dependent targets
                 GODOT_PLATFORM "${SYSTEM_NAME}"
-                GODOT_TARGET "${TARGET_NAME}"
+                GODOT_TARGET "${TARGET_ALIAS}"
                 GODOT_ARCH "${SYSTEM_ARCH}"
+
+                # Some IDE's respect this property to logically group targets
+                FOLDER "godot-cpp"
         )
 
         if( CMAKE_SYSTEM_NAME STREQUAL Android )
-            android_generate( ${TARGET_NAME} )
+            android_generate()
         elseif ( CMAKE_SYSTEM_NAME STREQUAL iOS )
-            ios_generate( ${TARGET_NAME} )
+            ios_generate()
         elseif ( CMAKE_SYSTEM_NAME STREQUAL Linux )
-            linux_generate( ${TARGET_NAME} )
+            linux_generate()
         elseif ( CMAKE_SYSTEM_NAME STREQUAL Darwin )
-            macos_generate( ${TARGET_NAME} )
+            macos_generate()
         elseif ( CMAKE_SYSTEM_NAME STREQUAL Emscripten )
-            web_generate( ${TARGET_NAME} )
+            web_generate()
         elseif ( CMAKE_SYSTEM_NAME STREQUAL Windows )
-            windows_generate( ${TARGET_NAME} )
+            windows_generate()
         endif ()
 
     endforeach ()
 
     # Added for backwards compatibility with prior cmake solution so that builds dont immediately break
     # from a missing target.
-    add_library( godot::cpp ALIAS template_debug )
+    add_library( godot::cpp ALIAS godot-cpp.template_debug )
 
 endfunction()
