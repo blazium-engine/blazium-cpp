@@ -132,7 +132,8 @@ function(godotcpp_options)
 
     set( GODOTCPP_THREADS ON CACHE BOOL "Enable threading support" )
 
-    #TODO threads
+    set( GODOT_THREADS ON CACHE BOOL "Enable threading support" )
+
     #TODO compiledb
     #TODO compiledb_file
 
@@ -281,7 +282,6 @@ function(godotcpp_generate)
         "$<$<PLATFORM_ID:Windows>:windows>"
         "$<$<PLATFORM_ID:Msys>:windows>"
     )
-    string(REPLACE ";" "" SYSTEM_NAME "${SYSTEM_NAME}")
 
     ### Use the arch from the toolchain if it isn't set manually
     if( GODOT_ARCH )
@@ -345,6 +345,17 @@ function(godotcpp_generate)
                 set(EXCLUDE "")
             endif()
         endif()
+
+        # Suffix
+        string( CONCAT GODOT_SUFFIX
+                "$<1:.${SYSTEM_NAME}>"
+                "$<1:.${TARGET_ALIAS}>"
+                "$<${IS_DEV_BUILD}:.dev>"
+                "$<$<STREQUAL:${GODOT_PRECISION},double>:.double>"
+                "$<1:.${SYSTEM_ARCH}>"
+                # TODO IOS_SIMULATOR
+                "$<$<NOT:${THREADS_ENABLED}>:.nothreads>"
+        )
 
         # the godot-cpp.* library targets
         add_library(${TARGET_NAME} STATIC ${EXCLUDE})
