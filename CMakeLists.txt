@@ -37,7 +37,7 @@ function is run.
 The CMake equivalent is below.
 ]=======================================================================]
 
-include( cmake/godotcpp.cmake )
+include(cmake/godotcpp.cmake)
 
 godotcpp_options()
 
@@ -55,8 +55,8 @@ compiler_detection()
 godotcpp_generate()
 
 # Conditionally enable the godot-cpp.test.<target> integration testing targets
-if( GODOT_ENABLE_TESTING )
-    add_subdirectory( test )
+if(GODOTCPP_ENABLE_TESTING)
+    add_subdirectory(test)
 endif()
 
 # If this is the top level CMakeLists.txt, Generators which honor the

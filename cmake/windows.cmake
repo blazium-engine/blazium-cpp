@@ -6,44 +6,38 @@ This file contains functions for options and configuration for targeting the
 Windows platform
 
 ]=======================================================================]
+function(windows_options)
+    option(GODOTCPP_USE_STATIC_CPP "Link MinGW/MSVC C++ runtime libraries statically" ON)
+    option(GODOTCPP_DEBUG_CRT "Compile with MSVC's debug CRT (/MDd)" OFF)
 
-function( windows_options )
+    message(
+        STATUS
+        "If not already cached, setting CMAKE_MSVC_RUNTIME_LIBRARY.\n"
+        "\tFor more information please read godot-cpp/cmake/windows.cmake"
+    )
 
-    option( GODOT_USE_STATIC_CPP "Link MinGW/MSVC C++ runtime libraries statically" ON )
-
-    option( GODOT_DEBUG_CRT "Compile with MSVC's debug CRT (/MDd)" OFF )
-
+    set(CMAKE_MSVC_RUNTIME_LIBRARY
+        "MultiThreaded$<IF:$<BOOL:${GODOTCPP_DEBUG_CRT}>,DebugDLL,$<$<NOT:$<BOOL:${GODOTCPP_USE_STATIC_CPP}>>:DLL>>"
+        CACHE STRING
+        "Select the MSVC runtime library for use by compilers targeting the MSVC ABI."
+    )
 endfunction()
 
-function( windows_generate TARGET_NAME )
-    set( STATIC_CPP "$<BOOL:${GODOT_USE_STATIC_CPP}>")
-    set( DEBUG_CRT "$<BOOL:${GODOT_DEBUG_CRT}>" )
+#[===========================[ Target Generation ]===========================]
+function(windows_generate)
+    set(STATIC_CPP "$<BOOL:${GODOTCPP_USE_STATIC_CPP}>")
 
-    set_target_properties( ${TARGET_NAME}
-            PROPERTIES
-            PDB_OUTPUT_DIRECTORY "$<1:${CMAKE_SOURCE_DIR}/bin>"
-            INTERFACE_MSVC_RUNTIME_LIBRARY
-                "$<IF:${DEBUG_CRT},MultiThreadedDebugDLL,$<IF:${STATIC_CPP},MultiThreaded,MultiThreadedDLL>>"
+    set_target_properties(${TARGET_NAME} PROPERTIES PDB_OUTPUT_DIRECTORY "$<1:${CMAKE_SOURCE_DIR}/bin>")
+
+    target_compile_definitions(
+        ${TARGET_NAME}
+        PUBLIC WINDOWS_ENABLED $<${IS_MSVC}: TYPED_METHOD_BIND NOMINMAX >
     )
 
-    target_compile_definitions( ${TARGET_NAME}
+    # gersemi: off
+    target_link_options(
+        ${TARGET_NAME}
         PUBLIC
-            WINDOWS_ENABLED
-            $<${IS_MSVC}:
-                TYPED_METHOD_BIND
-                NOMINMAX
-            >
-    )
-
-    target_compile_options( ${TARGET_NAME}
-        PUBLIC
-            $<${IS_MSVC}:
-                $<IF:${STATIC_CPP},/MT,/MD>$<${IS_DEV}:d> # Link microsoft runtime
-            >
-    )
-    target_link_options( ${TARGET_NAME}
-            PUBLIC
-
             $<${NOT_MSVC}:
                 -Wl,--no-undefined
                 $<${STATIC_CPP}:
@@ -55,6 +49,7 @@ function( windows_generate TARGET_NAME )
 
             $<${IS_CLANG}:-lstdc++>
     )
+    # gersemi: on
 
     common_compiler_flags()
 endfunction()
