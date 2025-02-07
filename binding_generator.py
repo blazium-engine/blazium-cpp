@@ -391,7 +391,7 @@ def generate_bindings(api_filepath, use_template_get_node, bits="64", precision=
         api = json.load(api_file)
 
     shutil.rmtree(target_dir, ignore_errors=True)
-    target_dir.mkdir(parents=True)
+    target_dir.mkdir(parents=True, exist_ok=True)
 
     real_t = "double" if precision == "double" else "float"
     print("Built-in type config: " + real_t + "_" + bits)
