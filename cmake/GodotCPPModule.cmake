@@ -1,14 +1,24 @@
 #[=======================================================================[.rst:
-python_callouts.cmake
+GodotCPPModule.cmake
 ---------------------
 
-This file contains functions which which rely on calling Python
+This file contains functions and tests which may be needed by consumers.
 
 * Generate Trimmed API
 * Generate File List
 * Generate Bindings
-]=======================================================================]
 
+If you want to use these functions in your project extend the CMAKE_MODULE_PATH
+by adding these two lines into your CMakeLists.txt after the inclusion
+godot-cpp
+
+.. highlight:: cmake
+
+    list(APPEND CMAKE_MODULE_PATH "${godot-cpp_SOURCE_DIR}/cmake")
+    include( GodotCPPModule )
+
+]=======================================================================]
+find_package(Python3 3.4 REQUIRED) # pathlib should be present
 
 #[[ Generate Trimmed API
 
@@ -114,22 +124,27 @@ endfunction()
 The documentation displayed in the Godot editor is compiled into the extension.
 It takes a list of XML source files, and transforms them into a cpp file that
 is added to the sources list.]]
-function(generate_doc_source OUTPUT_PATH SOURCES)
+function( generate_doc_source OUTPUT_PATH SOURCES )
     # Transform SOURCES CMake LIST
     # quote each path with ''
     # join with , to transform into a python list minus the surrounding []
-    set(PYTHON_LIST "${SOURCES}")
-    list(TRANSFORM PYTHON_LIST REPLACE "(.*\.xml)" "'\\1'")
-    list(JOIN PYTHON_LIST "," PYTHON_LIST)
-
-    get_filename_component(OUTPUT_DIR "${OUTPUT_PATH}" DIRECTORY)
-    file(MAKE_DIRECTORY ${OUTPUT_DIR})
+    set( PYTHON_LIST "${SOURCES}")
+    list( TRANSFORM PYTHON_LIST REPLACE "(.*\.xml)" "'\\1'" )
+    list( JOIN PYTHON_LIST "," PYTHON_LIST )
 
     # Python one-liner to run our command
     # lists in CMake are just strings delimited by ';', so this works.
-    set(PYTHON_SCRIPT
-        "from doc_source_generator import generate_doc_source"
-        "generate_doc_source( '${OUTPUT_PATH}', [${PYTHON_LIST}] )"
+    set( PYTHON_SCRIPT "from doc_source_generator import generate_doc_source"
+            "generate_doc_source( '${OUTPUT_PATH}', [${PYTHON_LIST}] )" )
+
+    add_custom_command( OUTPUT "${OUTPUT_PATH}"
+            COMMAND "${Python3_EXECUTABLE}" "-c" "${PYTHON_SCRIPT}"
+            VERBATIM
+            WORKING_DIRECTORY "${godot-cpp_SOURCE_DIR}"
+            DEPENDS
+            "${godot-cpp_SOURCE_DIR}/doc_source_generator.py"
+            "${SOURCES}"
+            COMMENT "Generating: ${OUTPUT_PATH}"
     )
 
     add_custom_command(
@@ -163,4 +178,29 @@ function(target_doc_sources TARGET SOURCES)
 
     # Without adding this dependency to the doc_source_generator, XCode will complain.
     add_dependencies(${TARGET} generate_doc_source)
+endfunction()
+
+#[[ target_doc_sources
+A simpler interface to add xml files as doc source to a output target.
+TARGET: The gdexension library target
+SOURCES: a list of xml files to use for source generation and inclusion.
+This function also adds a doc_gen target to test source generation.]]
+function( target_doc_sources TARGET SOURCES )
+    # set the generated file name
+    set( DOC_SOURCE_FILE "${CMAKE_CURRENT_BINARY_DIR}/gen/doc_source.cpp" )
+
+    # Create the file generation target, this won't be triggered unless a target
+    # that depends on DOC_SOURCE_FILE is built
+    generate_doc_source( "${DOC_SOURCE_FILE}" ${SOURCES} )
+
+    # Add DOC_SOURCE_FILE as a dependency to TARGET
+    target_sources( ${TARGET} PRIVATE "${DOC_SOURCE_FILE}" )
+
+    # Create a dummy target that depends on the source so that users can
+    # test the file generation task.
+    if( TARGET doc_gen )
+    else()
+        add_custom_target( doc_gen )
+    endif()
+    target_sources( doc_gen PRIVATE "${DOC_SOURCE_FILE}"  )
 endfunction()
