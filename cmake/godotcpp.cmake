@@ -100,12 +100,21 @@ function( godotcpp_generate )
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
         # using Visual Studio C++
         set(GODOT_COMPILE_FLAGS "/utf-8") # /GF /MP
-
-        if(CMAKE_BUILD_TYPE MATCHES Debug)
-            set(GODOT_COMPILE_FLAGS "${GODOT_COMPILE_FLAGS} /MDd") # /Od /RTC1 /Zi
-        else()
-            set(GODOT_COMPILE_FLAGS "${GODOT_COMPILE_FLAGS} /MD /O2") # /Oy /GL /Gy
-        endif(CMAKE_BUILD_TYPE MATCHES Debug)
+		
+		# check static/dynamic runtime
+		if (DEFINED ENV{GODOT_MSVC_STATIC_RUNTIME})
+	        if(CMAKE_BUILD_TYPE MATCHES Debug)
+	            set(GODOT_COMPILE_FLAGS "${GODOT_COMPILE_FLAGS} /MTd") # /Od /RTC1 /Zi
+	        else()
+	            set(GODOT_COMPILE_FLAGS "${GODOT_COMPILE_FLAGS} /MT /O2") # /Oy /GL /Gy
+	        endif() # 
+		else()
+	        if(CMAKE_BUILD_TYPE MATCHES Debug)
+	            set(GODOT_COMPILE_FLAGS "${GODOT_COMPILE_FLAGS} /MDd") # /Od /RTC1 /Zi
+	        else()
+	            set(GODOT_COMPILE_FLAGS "${GODOT_COMPILE_FLAGS} /MD /O2") # /Oy /GL /Gy
+	        endif()
+  		endif()
 
         add_definitions(-DNOMINMAX)
     else()  # GCC/Clang
