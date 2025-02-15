@@ -4,8 +4,8 @@
 		"version_minor": 3,
 		"version_patch": 0,
 		"version_status": "stable",
-		"version_build": "official",
-		"version_full_name": "Godot Engine v4.3.stable.official"
+		"version_build": "blazium",
+		"version_full_name": "Blazium Engine v0.1.184.nightly (4.3.stable.blazium)"
 	},
 	"builtin_class_sizes": [
 		{
@@ -44995,6 +44995,60 @@
 					}
 				},
 				{
+					"name": "set_doppler_strength",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 373806689,
+					"arguments": [
+						{
+							"name": "doppler_strength",
+							"type": "float",
+							"meta": "float"
+						}
+					]
+				},
+				{
+					"name": "get_doppler_strength",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1740695150,
+					"return_value": {
+						"type": "float",
+						"meta": "float"
+					}
+				},
+				{
+					"name": "set_doppler_clamp",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 373806689,
+					"arguments": [
+						{
+							"name": "doppler_clamp",
+							"type": "float",
+							"meta": "float"
+						}
+					]
+				},
+				{
+					"name": "get_doppler_clamp",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1740695150,
+					"return_value": {
+						"type": "float",
+						"meta": "float"
+					}
+				},
+				{
 					"name": "set_stream_paused",
 					"is_const": false,
 					"is_vararg": false,
@@ -45252,6 +45306,18 @@
 					"name": "doppler_tracking",
 					"setter": "set_doppler_tracking",
 					"getter": "get_doppler_tracking"
+				},
+				{
+					"type": "float",
+					"name": "doppler_strength",
+					"setter": "set_doppler_strength",
+					"getter": "get_doppler_strength"
+				},
+				{
+					"type": "float",
+					"name": "doppler_clamp",
+					"setter": "set_doppler_clamp",
+					"getter": "get_doppler_clamp"
 				}
 			]
 		},
@@ -46803,6 +46869,24 @@
 							"value": 1
 						}
 					]
+				},
+				{
+					"name": "SizeMode",
+					"is_bitfield": false,
+					"values": [
+						{
+							"name": "SIZE_MODE_IGNORE",
+							"value": 0
+						},
+						{
+							"name": "SIZE_MODE_FIT_WIDTH",
+							"value": 1
+						},
+						{
+							"name": "SIZE_MODE_FIT_HEIGHT",
+							"value": 2
+						}
+					]
 				}
 			],
 			"methods": [
@@ -46960,7 +47044,7 @@
 					"hash": 1985162088,
 					"arguments": [
 						{
-							"name": "mode",
+							"name": "action_mode",
 							"type": "enum::BaseButton.ActionMode"
 						}
 					]
@@ -46974,6 +47058,31 @@
 					"hash": 2589712189,
 					"return_value": {
 						"type": "enum::BaseButton.ActionMode"
+					}
+				},
+				{
+					"name": "set_size_mode",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1723990759,
+					"arguments": [
+						{
+							"name": "size_mode",
+							"type": "enum::BaseButton.SizeMode"
+						}
+					]
+				},
+				{
+					"name": "get_size_mode",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2867258028,
+					"return_value": {
+						"type": "enum::BaseButton.SizeMode"
 					}
 				},
 				{
@@ -47157,6 +47266,12 @@
 					"name": "action_mode",
 					"setter": "set_action_mode",
 					"getter": "get_action_mode"
+				},
+				{
+					"type": "int",
+					"name": "size_mode",
+					"setter": "set_size_mode",
+					"getter": "get_size_mode"
 				},
 				{
 					"type": "int",
@@ -50547,6 +50662,13 @@
 					"getter": "_get_data"
 				}
 			]
+		},
+		{
+			"name": "BlaziumClient",
+			"is_refcounted": false,
+			"is_instantiable": false,
+			"inherits": "Node",
+			"api_type": "core"
 		},
 		{
 			"name": "Bone2D",
@@ -59298,6 +59420,47 @@
 					"return_value": {
 						"type": "enum::CameraFeed.FeedDataType"
 					}
+				},
+				{
+					"name": "get_formats",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3995934104,
+					"return_value": {
+						"type": "Array"
+					}
+				},
+				{
+					"name": "set_format",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 31872775,
+					"return_value": {
+						"type": "bool"
+					},
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						},
+						{
+							"name": "parameters",
+							"type": "Dictionary"
+						}
+					]
+				}
+			],
+			"signals": [
+				{
+					"name": "frame_changed"
+				},
+				{
+					"name": "format_changed"
 				}
 			],
 			"properties": [
@@ -59312,6 +59475,11 @@
 					"name": "feed_transform",
 					"setter": "set_transform",
 					"getter": "get_transform"
+				},
+				{
+					"type": "Array",
+					"name": "formats",
+					"getter": "get_formats"
 				}
 			]
 		},
@@ -69678,6 +69846,104 @@
 			]
 		},
 		{
+			"name": "ColorButton",
+			"is_refcounted": false,
+			"is_instantiable": true,
+			"inherits": "BaseButton",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "set_color_no_signal",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2920490490,
+					"arguments": [
+						{
+							"name": "color",
+							"type": "Color"
+						}
+					]
+				},
+				{
+					"name": "set_color",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2920490490,
+					"arguments": [
+						{
+							"name": "color",
+							"type": "Color"
+						}
+					]
+				},
+				{
+					"name": "get_color",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3444240500,
+					"return_value": {
+						"type": "Color"
+					}
+				},
+				{
+					"name": "set_flat",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2586408642,
+					"arguments": [
+						{
+							"name": "enabled",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "is_flat",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				}
+			],
+			"signals": [
+				{
+					"name": "color_changed",
+					"arguments": [
+						{
+							"name": "color",
+							"type": "Color"
+						}
+					]
+				}
+			],
+			"properties": [
+				{
+					"type": "Color",
+					"name": "color",
+					"setter": "set_color_no_signal",
+					"getter": "get_color"
+				},
+				{
+					"type": "bool",
+					"name": "flat",
+					"setter": "set_flat",
+					"getter": "is_flat"
+				}
+			]
+		},
+		{
 			"name": "ColorPicker",
 			"is_refcounted": false,
 			"is_instantiable": true,
@@ -69757,6 +70023,45 @@
 					"hash": 3444240500,
 					"return_value": {
 						"type": "Color"
+					}
+				},
+				{
+					"name": "set_old_color",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2920490490,
+					"arguments": [
+						{
+							"name": "color",
+							"type": "Color"
+						}
+					]
+				},
+				{
+					"name": "set_display_old_color",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2586408642,
+					"arguments": [
+						{
+							"name": "display",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "is_displaying_old_color",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
 					}
 				},
 				{
@@ -78230,6 +78535,765 @@
 					"name": "sky_mode",
 					"setter": "set_sky_mode",
 					"getter": "get_sky_mode"
+				}
+			]
+		},
+		{
+			"name": "DiscordEmbeddedAppClient",
+			"is_refcounted": false,
+			"is_instantiable": true,
+			"inherits": "ThirdPartyClient",
+			"api_type": "core",
+			"enums": [
+				{
+					"name": "DiscordEmbeddedAppOrientationLockState",
+					"is_bitfield": false,
+					"values": [
+						{
+							"name": "DISCORD_EMBEDDED_APP_ORIENTATION_LOCK_STATE_UNHANDLED",
+							"value": -1
+						},
+						{
+							"name": "DISCORD_EMBEDDED_APP_ORIENTATION_LOCK_STATE_UNLOCKED",
+							"value": 1
+						},
+						{
+							"name": "DISCORD_EMBEDDED_APP_ORIENTATION_LOCK_STATE_PORTRAIT",
+							"value": 2
+						},
+						{
+							"name": "DISCORD_EMBEDDED_APP_ORIENTATION_LOCK_STATE_LANDSCAPE",
+							"value": 3
+						}
+					]
+				}
+			],
+			"methods": [
+				{
+					"name": "close",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 501894301,
+					"arguments": [
+						{
+							"name": "code",
+							"type": "int",
+							"meta": "int32"
+						},
+						{
+							"name": "message",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "authenticate",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 727016349,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					},
+					"arguments": [
+						{
+							"name": "access_token",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "authorize",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1798996667,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					},
+					"arguments": [
+						{
+							"name": "response_type",
+							"type": "String"
+						},
+						{
+							"name": "state",
+							"type": "String"
+						},
+						{
+							"name": "prompt",
+							"type": "String"
+						},
+						{
+							"name": "scope",
+							"type": "Array"
+						}
+					]
+				},
+				{
+					"name": "capture_log",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2708333931,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					},
+					"arguments": [
+						{
+							"name": "level",
+							"type": "String"
+						},
+						{
+							"name": "message",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "encourage_hardware_acceleration",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 772815147,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					}
+				},
+				{
+					"name": "get_channel",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 727016349,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					},
+					"arguments": [
+						{
+							"name": "channel_id",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_channel_permissions",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 772815147,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					}
+				},
+				{
+					"name": "get_entitlements",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 772815147,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					}
+				},
+				{
+					"name": "get_instance_connected_participants",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 772815147,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					}
+				},
+				{
+					"name": "get_platform_behaviours",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 772815147,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					}
+				},
+				{
+					"name": "get_skus",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 772815147,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					}
+				},
+				{
+					"name": "initiate_image_upload",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 772815147,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					}
+				},
+				{
+					"name": "open_external_link",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 727016349,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					},
+					"arguments": [
+						{
+							"name": "url",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "open_invite_dialog",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 772815147,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					}
+				},
+				{
+					"name": "open_share_moment_dialog",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 727016349,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					},
+					"arguments": [
+						{
+							"name": "media_url",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "set_activity",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3285996244,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					},
+					"arguments": [
+						{
+							"name": "activity",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "set_config",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3614744037,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					},
+					"arguments": [
+						{
+							"name": "use_interactive_pip",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "set_orientation_lock_state",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2229000133,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					},
+					"arguments": [
+						{
+							"name": "lock_state",
+							"type": "enum::DiscordEmbeddedAppClient.DiscordEmbeddedAppOrientationLockState"
+						},
+						{
+							"name": "picture_in_picture_lock_state",
+							"type": "enum::DiscordEmbeddedAppClient.DiscordEmbeddedAppOrientationLockState"
+						},
+						{
+							"name": "grid_lock_state",
+							"type": "enum::DiscordEmbeddedAppClient.DiscordEmbeddedAppOrientationLockState"
+						}
+					]
+				},
+				{
+					"name": "start_purchase",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2708333931,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					},
+					"arguments": [
+						{
+							"name": "sku_id",
+							"type": "String"
+						},
+						{
+							"name": "pid",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "user_settings_get_locale",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 772815147,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					}
+				},
+				{
+					"name": "subscribe_to_all_events",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3218959716
+				},
+				{
+					"name": "is_ready",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 772815147,
+					"return_value": {
+						"type": "DiscordEmbeddedAppResponse"
+					}
+				},
+				{
+					"name": "is_discord_environment",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2240911060,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "get_user_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_client_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_user_instance_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_custom_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_referrer_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_platform",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_guild_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_channel_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_location_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_sdk_version",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_mobile_app_version",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_frame_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				}
+			],
+			"signals": [
+				{
+					"name": "log_updated",
+					"arguments": [
+						{
+							"name": "command",
+							"type": "String"
+						},
+						{
+							"name": "logs",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "error",
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "voice_state_update",
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "speaking_start",
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "speaking_stop",
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "activity_layout_mode_update",
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "orientation_update",
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "thermal_state_update",
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "activity_instance_participants_update",
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "entitlement_create",
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "current_guild_member_update",
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "current_user_update",
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Dictionary"
+						}
+					]
+				}
+			],
+			"properties": [
+				{
+					"type": "String",
+					"name": "user_id",
+					"getter": "get_user_id"
+				},
+				{
+					"type": "String",
+					"name": "client_id",
+					"getter": "get_client_id"
+				},
+				{
+					"type": "String",
+					"name": "user_instance_id",
+					"getter": "get_user_instance_id"
+				},
+				{
+					"type": "String",
+					"name": "custom_id",
+					"getter": "get_custom_id"
+				},
+				{
+					"type": "String",
+					"name": "referrer_id",
+					"getter": "get_referrer_id"
+				},
+				{
+					"type": "String",
+					"name": "platform",
+					"getter": "get_platform"
+				},
+				{
+					"type": "String",
+					"name": "guild_id",
+					"getter": "get_guild_id"
+				},
+				{
+					"type": "String",
+					"name": "channel_id",
+					"getter": "get_channel_id"
+				},
+				{
+					"type": "String",
+					"name": "location_id",
+					"getter": "get_location_id"
+				},
+				{
+					"type": "String",
+					"name": "sdk_version",
+					"getter": "get_sdk_version"
+				},
+				{
+					"type": "String",
+					"name": "mobile_app_version",
+					"getter": "get_mobile_app_version"
+				},
+				{
+					"type": "String",
+					"name": "frame_id",
+					"getter": "get_frame_id"
+				}
+			]
+		},
+		{
+			"name": "DiscordEmbeddedAppResponse",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "RefCounted",
+			"api_type": "core",
+			"signals": [
+				{
+					"name": "finished",
+					"arguments": [
+						{
+							"name": "result",
+							"type": "DiscordEmbeddedAppResult"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "DiscordEmbeddedAppResult",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "RefCounted",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "get_data",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3102165223,
+					"return_value": {
+						"type": "Dictionary"
+					}
+				},
+				{
+					"name": "has_error",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "get_error",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				}
+			],
+			"properties": [
+				{
+					"type": "Dictionary",
+					"name": "data",
+					"getter": "get_data"
+				},
+				{
+					"type": "String",
+					"name": "error",
+					"getter": "get_error"
 				}
 			]
 		},
@@ -86954,6 +88018,17 @@
 					"hash": 1139954409,
 					"return_value": {
 						"type": "PackedStringArray"
+					}
+				},
+				{
+					"name": "get_open_scenes_roots",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3995934104,
+					"return_value": {
+						"type": "Array"
 					}
 				},
 				{
@@ -99726,6 +100801,927 @@
 			]
 		},
 		{
+			"name": "FoldableContainer",
+			"is_refcounted": false,
+			"is_instantiable": true,
+			"inherits": "Container",
+			"api_type": "core",
+			"enums": [
+				{
+					"name": "TitlePosition",
+					"is_bitfield": false,
+					"values": [
+						{
+							"name": "POSITION_TOP",
+							"value": 0
+						},
+						{
+							"name": "POSITION_BOTTOM",
+							"value": 1
+						}
+					]
+				}
+			],
+			"methods": [
+				{
+					"name": "fold",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3218959716
+				},
+				{
+					"name": "expand",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3218959716
+				},
+				{
+					"name": "set_folded",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2586408642,
+					"arguments": [
+						{
+							"name": "folded",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "is_folded",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "set_expanded",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2586408642,
+					"arguments": [
+						{
+							"name": "expanded",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "is_expanded",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "set_foldable_group",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3001390597,
+					"arguments": [
+						{
+							"name": "button_group",
+							"type": "FoldableGroup"
+						}
+					]
+				},
+				{
+					"name": "get_foldable_group",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 66499518,
+					"return_value": {
+						"type": "FoldableGroup"
+					}
+				},
+				{
+					"name": "set_text",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "text",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_text",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "set_title_alignment",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2312603777,
+					"arguments": [
+						{
+							"name": "alignment",
+							"type": "enum::HorizontalAlignment"
+						}
+					]
+				},
+				{
+					"name": "get_title_alignment",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 341400642,
+					"return_value": {
+						"type": "enum::HorizontalAlignment"
+					}
+				},
+				{
+					"name": "set_language",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "language",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_language",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "set_text_direction",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 119160795,
+					"arguments": [
+						{
+							"name": "text_direction",
+							"type": "enum::Control.TextDirection"
+						}
+					]
+				},
+				{
+					"name": "get_text_direction",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 797257663,
+					"return_value": {
+						"type": "enum::Control.TextDirection"
+					}
+				},
+				{
+					"name": "set_text_overrun_behavior",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1008890932,
+					"arguments": [
+						{
+							"name": "overrun_behavior",
+							"type": "enum::TextServer.OverrunBehavior"
+						}
+					]
+				},
+				{
+					"name": "get_text_overrun_behavior",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3779142101,
+					"return_value": {
+						"type": "enum::TextServer.OverrunBehavior"
+					}
+				},
+				{
+					"name": "set_title_position",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2276829442,
+					"arguments": [
+						{
+							"name": "title_position",
+							"type": "enum::FoldableContainer.TitlePosition"
+						}
+					]
+				},
+				{
+					"name": "get_title_position",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3028840207,
+					"return_value": {
+						"type": "enum::FoldableContainer.TitlePosition"
+					}
+				},
+				{
+					"name": "add_button",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2182786679,
+					"arguments": [
+						{
+							"name": "icon",
+							"type": "Texture2D",
+							"default_value": "null"
+						},
+						{
+							"name": "position",
+							"type": "int",
+							"meta": "int32",
+							"default_value": "-1"
+						},
+						{
+							"name": "id",
+							"type": "int",
+							"meta": "int32",
+							"default_value": "-1"
+						}
+					]
+				},
+				{
+					"name": "remove_button",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1286410249,
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "set_button_count",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1286410249,
+					"arguments": [
+						{
+							"name": "count",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "get_button_count",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3905245786,
+					"return_value": {
+						"type": "int",
+						"meta": "int32"
+					}
+				},
+				{
+					"name": "get_button_rect",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3327874267,
+					"return_value": {
+						"type": "Rect2"
+					},
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "clear",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3218959716
+				},
+				{
+					"name": "set_button_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3937882851,
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						},
+						{
+							"name": "id",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "get_button_id",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 923996154,
+					"return_value": {
+						"type": "int",
+						"meta": "int32"
+					},
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "move_button",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 50157827,
+					"return_value": {
+						"type": "int",
+						"meta": "int32"
+					},
+					"arguments": [
+						{
+							"name": "from",
+							"type": "int",
+							"meta": "int32"
+						},
+						{
+							"name": "to",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "get_button_index",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 923996154,
+					"return_value": {
+						"type": "int",
+						"meta": "int32"
+					},
+					"arguments": [
+						{
+							"name": "id",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "set_button_toggle_mode",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 300928843,
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						},
+						{
+							"name": "enabled",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "get_button_toggle_mode",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1116898809,
+					"return_value": {
+						"type": "bool"
+					},
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "set_button_toggled",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 300928843,
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						},
+						{
+							"name": "toggled_on",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "is_button_toggled",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1116898809,
+					"return_value": {
+						"type": "bool"
+					},
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "set_button_icon",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 666127730,
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						},
+						{
+							"name": "icon",
+							"type": "Texture2D"
+						}
+					]
+				},
+				{
+					"name": "get_button_icon",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3536238170,
+					"return_value": {
+						"type": "Texture2D"
+					},
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "set_button_tooltip",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 501894301,
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						},
+						{
+							"name": "tooltip",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_button_tooltip",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 844755477,
+					"return_value": {
+						"type": "String"
+					},
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "set_button_disabled",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 300928843,
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						},
+						{
+							"name": "disabled",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "is_button_disabled",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1116898809,
+					"return_value": {
+						"type": "bool"
+					},
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "set_button_visible",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 300928843,
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						},
+						{
+							"name": "hidden",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "is_button_visible",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1116898809,
+					"return_value": {
+						"type": "bool"
+					},
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "set_button_auto_hide",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 300928843,
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						},
+						{
+							"name": "auto_hide",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "is_button_auto_hide",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1116898809,
+					"return_value": {
+						"type": "bool"
+					},
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "set_button_metadata",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2152698145,
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						},
+						{
+							"name": "metadata",
+							"type": "Variant"
+						}
+					]
+				},
+				{
+					"name": "get_button_metadata",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 4227898402,
+					"return_value": {
+						"type": "Variant"
+					},
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "get_button_at_position",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3820158470,
+					"return_value": {
+						"type": "int",
+						"meta": "int32"
+					},
+					"arguments": [
+						{
+							"name": "position",
+							"type": "Vector2"
+						}
+					]
+				}
+			],
+			"signals": [
+				{
+					"name": "folding_changed",
+					"arguments": [
+						{
+							"name": "is_folded",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "button_pressed",
+					"arguments": [
+						{
+							"name": "index",
+							"type": "int"
+						}
+					]
+				},
+				{
+					"name": "button_toggled",
+					"arguments": [
+						{
+							"name": "toggled_on",
+							"type": "bool"
+						},
+						{
+							"name": "index",
+							"type": "int"
+						}
+					]
+				}
+			],
+			"properties": [
+				{
+					"type": "bool",
+					"name": "folded",
+					"setter": "set_folded",
+					"getter": "is_folded"
+				},
+				{
+					"type": "String",
+					"name": "text",
+					"setter": "set_text",
+					"getter": "get_text"
+				},
+				{
+					"type": "int",
+					"name": "title_alignment",
+					"setter": "set_title_alignment",
+					"getter": "get_title_alignment"
+				},
+				{
+					"type": "int",
+					"name": "title_position",
+					"setter": "set_title_position",
+					"getter": "get_title_position"
+				},
+				{
+					"type": "int",
+					"name": "text_overrun_behavior",
+					"setter": "set_text_overrun_behavior",
+					"getter": "get_text_overrun_behavior"
+				},
+				{
+					"type": "FoldableGroup",
+					"name": "foldable_group",
+					"setter": "set_foldable_group",
+					"getter": "get_foldable_group"
+				},
+				{
+					"type": "int",
+					"name": "button_count",
+					"setter": "set_button_count",
+					"getter": "get_button_count"
+				},
+				{
+					"type": "int",
+					"name": "text_direction",
+					"setter": "set_text_direction",
+					"getter": "get_text_direction"
+				},
+				{
+					"type": "String",
+					"name": "language",
+					"setter": "set_language",
+					"getter": "get_language"
+				}
+			]
+		},
+		{
+			"name": "FoldableGroup",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "Resource",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "get_expanded_container",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3414248291,
+					"return_value": {
+						"type": "FoldableContainer"
+					}
+				},
+				{
+					"name": "get_containers",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2915620761,
+					"return_value": {
+						"type": "typedarray::FoldableContainer"
+					}
+				},
+				{
+					"name": "set_allow_folding_all",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2586408642,
+					"arguments": [
+						{
+							"name": "enabled",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "is_allow_folding_all",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2240911060,
+					"return_value": {
+						"type": "bool"
+					}
+				}
+			],
+			"signals": [
+				{
+					"name": "expanded",
+					"arguments": [
+						{
+							"name": "container",
+							"type": "FoldableContainer"
+						}
+					]
+				}
+			],
+			"properties": [
+				{
+					"type": "bool",
+					"name": "allow_folding_all",
+					"setter": "set_allow_folding_all",
+					"getter": "is_allow_folding_all"
+				}
+			]
+		},
+		{
 			"name": "Font",
 			"is_refcounted": true,
 			"is_instantiable": false,
@@ -101106,6 +103102,31 @@
 					"hash": 1069238588,
 					"return_value": {
 						"type": "enum::TextServer.SubpixelPositioning"
+					}
+				},
+				{
+					"name": "set_lcd_subpixel_layout",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1893246148,
+					"arguments": [
+						{
+							"name": "subpixel_layout",
+							"type": "enum::TextServer.FontLCDSubpixelLayout"
+						}
+					]
+				},
+				{
+					"name": "get_lcd_subpixel_layout",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1912389403,
+					"return_value": {
+						"type": "enum::TextServer.FontLCDSubpixelLayout"
 					}
 				},
 				{
@@ -102654,6 +104675,12 @@
 					"name": "subpixel_positioning",
 					"setter": "set_subpixel_positioning",
 					"getter": "get_subpixel_positioning"
+				},
+				{
+					"type": "int",
+					"name": "lcd_subpixel_layout",
+					"setter": "set_lcd_subpixel_layout",
+					"getter": "get_lcd_subpixel_layout"
 				},
 				{
 					"type": "bool",
@@ -111427,6 +113454,271 @@
 					"name": "radius",
 					"setter": "set_radius",
 					"getter": "get_radius"
+				}
+			]
+		},
+		{
+			"name": "GameServerInfo",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "Resource",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "get_id",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_game_name",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_ip_address",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_port",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3905245786,
+					"return_value": {
+						"type": "int",
+						"meta": "int32"
+					}
+				},
+				{
+					"name": "get_description",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_max_players",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3905245786,
+					"return_value": {
+						"type": "int",
+						"meta": "int32"
+					}
+				},
+				{
+					"name": "get_players",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3905245786,
+					"return_value": {
+						"type": "int",
+						"meta": "int32"
+					}
+				},
+				{
+					"name": "get_version",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "set_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "id",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "set_game_name",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "game_name",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "set_ip_address",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "ip_address",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "set_port",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1286410249,
+					"arguments": [
+						{
+							"name": "port",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "set_description",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "description",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "set_max_players",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1286410249,
+					"arguments": [
+						{
+							"name": "max_players",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "set_players",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1286410249,
+					"arguments": [
+						{
+							"name": "players",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
+					"name": "set_version",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "version",
+							"type": "String"
+						}
+					]
+				}
+			],
+			"properties": [
+				{
+					"type": "String",
+					"name": "id",
+					"setter": "set_id",
+					"getter": "get_id"
+				},
+				{
+					"type": "String",
+					"name": "game_name",
+					"setter": "set_game_name",
+					"getter": "get_game_name"
+				},
+				{
+					"type": "String",
+					"name": "ip_address",
+					"setter": "set_ip_address",
+					"getter": "get_ip_address"
+				},
+				{
+					"type": "String",
+					"name": "port",
+					"setter": "set_port",
+					"getter": "get_port"
+				},
+				{
+					"type": "String",
+					"name": "description",
+					"setter": "set_description",
+					"getter": "get_description"
+				},
+				{
+					"type": "int",
+					"name": "max_players",
+					"setter": "set_max_players",
+					"getter": "get_max_players"
+				},
+				{
+					"type": "int",
+					"name": "players",
+					"setter": "set_players",
+					"getter": "get_players"
+				},
+				{
+					"type": "String",
+					"name": "version",
+					"setter": "set_version",
+					"getter": "get_version"
 				}
 			]
 		},
@@ -127823,6 +130115,49 @@
 			]
 		},
 		{
+			"name": "JWT",
+			"is_refcounted": false,
+			"is_instantiable": true,
+			"inherits": "Object",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "get_header",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2786125124,
+					"return_value": {
+						"type": "Dictionary"
+					},
+					"arguments": [
+						{
+							"name": "jwt",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_payload",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2786125124,
+					"return_value": {
+						"type": "Dictionary"
+					},
+					"arguments": [
+						{
+							"name": "jwt",
+							"type": "String"
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "JavaClass",
 			"is_refcounted": true,
 			"is_instantiable": true,
@@ -128011,6 +130346,22 @@
 			"is_instantiable": false,
 			"inherits": "Node2D",
 			"api_type": "core",
+			"enums": [
+				{
+					"name": "DisableMode",
+					"is_bitfield": false,
+					"values": [
+						{
+							"name": "DISABLE_MODE_REMOVE",
+							"value": 0
+						},
+						{
+							"name": "DISABLE_MODE_KEEP_ACTIVE",
+							"value": 1
+						}
+					]
+				}
+			],
 			"methods": [
 				{
 					"name": "set_node_a",
@@ -128090,6 +130441,31 @@
 					}
 				},
 				{
+					"name": "set_disable_mode",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3394248226,
+					"arguments": [
+						{
+							"name": "mode",
+							"type": "enum::Joint2D.DisableMode"
+						}
+					]
+				},
+				{
+					"name": "get_disable_mode",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2910099652,
+					"return_value": {
+						"type": "enum::Joint2D.DisableMode"
+					}
+				},
+				{
 					"name": "set_exclude_nodes_from_collision",
 					"is_const": false,
 					"is_vararg": false,
@@ -128150,6 +130526,12 @@
 					"name": "disable_collision",
 					"setter": "set_exclude_nodes_from_collision",
 					"getter": "get_exclude_nodes_from_collision"
+				},
+				{
+					"type": "int",
+					"name": "disable_mode",
+					"setter": "set_disable_mode",
+					"getter": "get_disable_mode"
 				}
 			]
 		},
@@ -128159,6 +130541,22 @@
 			"is_instantiable": false,
 			"inherits": "Node3D",
 			"api_type": "core",
+			"enums": [
+				{
+					"name": "DisableMode",
+					"is_bitfield": false,
+					"values": [
+						{
+							"name": "DISABLE_MODE_REMOVE",
+							"value": 0
+						},
+						{
+							"name": "DISABLE_MODE_KEEP_ACTIVE",
+							"value": 1
+						}
+					]
+				}
+			],
 			"methods": [
 				{
 					"name": "set_node_a",
@@ -128263,6 +130661,31 @@
 					}
 				},
 				{
+					"name": "set_disable_mode",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 515496447,
+					"arguments": [
+						{
+							"name": "mode",
+							"type": "enum::Joint3D.DisableMode"
+						}
+					]
+				},
+				{
+					"name": "get_disable_mode",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2768499949,
+					"return_value": {
+						"type": "enum::Joint3D.DisableMode"
+					}
+				},
+				{
 					"name": "get_rid",
 					"is_const": true,
 					"is_vararg": false,
@@ -128298,6 +130721,12 @@
 					"name": "exclude_nodes_from_collision",
 					"setter": "set_exclude_nodes_from_collision",
 					"getter": "get_exclude_nodes_from_collision"
+				},
+				{
+					"type": "int",
+					"name": "disable_mode",
+					"setter": "set_disable_mode",
+					"getter": "get_disable_mode"
 				}
 			]
 		},
@@ -133822,6 +136251,33 @@
 			],
 			"methods": [
 				{
+					"name": "has_ime_text",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "cancel_ime",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3218959716
+				},
+				{
+					"name": "apply_ime",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3218959716
+				},
+				{
 					"name": "set_horizontal_alignment",
 					"is_const": false,
 					"is_vararg": false,
@@ -133844,6 +136300,58 @@
 					"hash": 341400642,
 					"return_value": {
 						"type": "enum::HorizontalAlignment"
+					}
+				},
+				{
+					"name": "edit",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3218959716
+				},
+				{
+					"name": "unedit",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3218959716
+				},
+				{
+					"name": "is_editing",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "set_keep_editing_on_text_submit",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2586408642,
+					"arguments": [
+						{
+							"name": "enable",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "is_editing_kept_on_text_submit",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
 					}
 				},
 				{
@@ -134788,6 +137296,15 @@
 							"type": "String"
 						}
 					]
+				},
+				{
+					"name": "editing_toggled",
+					"arguments": [
+						{
+							"name": "toggled_on",
+							"type": "bool"
+						}
+					]
 				}
 			],
 			"properties": [
@@ -134820,6 +137337,12 @@
 					"name": "editable",
 					"setter": "set_editable",
 					"getter": "is_editable"
+				},
+				{
+					"type": "bool",
+					"name": "keep_editing_on_text_submit",
+					"setter": "set_keep_editing_on_text_submit",
+					"getter": "is_editing_kept_on_text_submit"
 				},
 				{
 					"type": "bool",
@@ -135222,6 +137745,1483 @@
 			]
 		},
 		{
+			"name": "LobbyClient",
+			"is_refcounted": false,
+			"is_instantiable": true,
+			"inherits": "BlaziumClient",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "set_server_url",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "server_url",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_server_url",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "set_reconnection_token",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "reconnection_token",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_reconnection_token",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "set_game_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "game_id",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_game_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "is_host",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2240911060,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "get_connected",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2240911060,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "get_lobby",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2759059446,
+					"return_value": {
+						"type": "LobbyInfo"
+					}
+				},
+				{
+					"name": "get_peer",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 899568590,
+					"return_value": {
+						"type": "LobbyPeer"
+					}
+				},
+				{
+					"name": "get_peers",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2915620761,
+					"return_value": {
+						"type": "typedarray::LobbyPeer"
+					}
+				},
+				{
+					"name": "get_host_data",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2382534195,
+					"return_value": {
+						"type": "Dictionary"
+					}
+				},
+				{
+					"name": "get_peer_data",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2382534195,
+					"return_value": {
+						"type": "Dictionary"
+					}
+				},
+				{
+					"name": "set_override_discord_path",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "override_discord_path",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_override_discord_path",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "connect_to_lobby",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 402759040,
+					"return_value": {
+						"type": "LobbyResponse"
+					}
+				},
+				{
+					"name": "disconnect_from_lobby",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 402759040,
+					"return_value": {
+						"type": "LobbyResponse"
+					}
+				},
+				{
+					"name": "create_lobby",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1782804803,
+					"return_value": {
+						"type": "ViewLobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "title",
+							"type": "String"
+						},
+						{
+							"name": "sealed",
+							"type": "bool"
+						},
+						{
+							"name": "tags",
+							"type": "Dictionary",
+							"default_value": "{}"
+						},
+						{
+							"name": "max_players",
+							"type": "int",
+							"meta": "int32",
+							"default_value": "4"
+						},
+						{
+							"name": "password",
+							"type": "String",
+							"default_value": "\"\""
+						}
+					]
+				},
+				{
+					"name": "join_lobby",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3724509716,
+					"return_value": {
+						"type": "ViewLobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "lobby_id",
+							"type": "String"
+						},
+						{
+							"name": "password",
+							"type": "String",
+							"default_value": "\"\""
+						}
+					]
+				},
+				{
+					"name": "leave_lobby",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 402759040,
+					"return_value": {
+						"type": "LobbyResponse"
+					}
+				},
+				{
+					"name": "list_lobbies",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 402759040,
+					"return_value": {
+						"type": "LobbyResponse"
+					}
+				},
+				{
+					"name": "kick_peer",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3186253920,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "peer_id",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "send_chat_message",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3186253920,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "chat_message",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "set_lobby_ready",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 668034168,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "ready",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "add_lobby_tags",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3614381552,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "tags",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "del_lobby_tags",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2785274044,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "keys",
+							"type": "typedarray::String"
+						}
+					]
+				},
+				{
+					"name": "set_lobby_sealed",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 668034168,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "seal",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "notify_lobby",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1532202378,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Variant"
+						}
+					]
+				},
+				{
+					"name": "notify_peer",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1920983225,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Variant"
+						},
+						{
+							"name": "target_peer",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "add_peer_user_data",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3614381552,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "del_peer_user_data",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2785274044,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "keys",
+							"type": "typedarray::String"
+						}
+					]
+				},
+				{
+					"name": "add_lobby_data",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2853357623,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Dictionary"
+						},
+						{
+							"name": "is_private",
+							"type": "bool",
+							"default_value": "false"
+						}
+					]
+				},
+				{
+					"name": "del_lobby_data",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3369593485,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "keys",
+							"type": "typedarray::String"
+						},
+						{
+							"name": "is_private",
+							"type": "bool",
+							"default_value": "false"
+						}
+					]
+				},
+				{
+					"name": "add_peer_data",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2278039757,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Dictionary"
+						},
+						{
+							"name": "target_peer",
+							"type": "String"
+						},
+						{
+							"name": "is_private",
+							"type": "bool",
+							"default_value": "false"
+						}
+					]
+				},
+				{
+					"name": "del_peer_data",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2848941423,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "keys",
+							"type": "typedarray::String"
+						},
+						{
+							"name": "target_peer",
+							"type": "String"
+						},
+						{
+							"name": "is_private",
+							"type": "bool",
+							"default_value": "false"
+						}
+					]
+				},
+				{
+					"name": "add_peers_data",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2853357623,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Dictionary"
+						},
+						{
+							"name": "is_private",
+							"type": "bool",
+							"default_value": "false"
+						}
+					]
+				},
+				{
+					"name": "del_peers_data",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3369593485,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "keys",
+							"type": "typedarray::String"
+						},
+						{
+							"name": "is_private",
+							"type": "bool",
+							"default_value": "false"
+						}
+					]
+				}
+			],
+			"signals": [
+				{
+					"name": "connected_to_lobby",
+					"arguments": [
+						{
+							"name": "peer",
+							"type": "LobbyPeer"
+						},
+						{
+							"name": "reconnection_token",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "disconnected_from_lobby",
+					"arguments": [
+						{
+							"name": "reason",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "received_peer_user_data",
+					"arguments": [
+						{
+							"name": "peer",
+							"type": "LobbyPeer"
+						},
+						{
+							"name": "data",
+							"type": "Object"
+						}
+					]
+				},
+				{
+					"name": "lobby_notified",
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Object"
+						},
+						{
+							"name": "from_peer",
+							"type": "LobbyPeer"
+						}
+					]
+				},
+				{
+					"name": "received_peer_data",
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Object"
+						},
+						{
+							"name": "to_peer",
+							"type": "LobbyPeer"
+						},
+						{
+							"name": "is_private",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "received_lobby_data",
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Object"
+						},
+						{
+							"name": "is_private",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "lobby_created",
+					"arguments": [
+						{
+							"name": "lobby",
+							"type": "LobbyInfo"
+						},
+						{
+							"name": "peers",
+							"type": "typedarray::LobbyPeer"
+						}
+					]
+				},
+				{
+					"name": "lobby_joined",
+					"arguments": [
+						{
+							"name": "lobby",
+							"type": "LobbyInfo"
+						},
+						{
+							"name": "peers",
+							"type": "typedarray::LobbyPeer"
+						}
+					]
+				},
+				{
+					"name": "lobby_left",
+					"arguments": [
+						{
+							"name": "kicked",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "lobby_sealed",
+					"arguments": [
+						{
+							"name": "sealed",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "lobby_tagged",
+					"arguments": [
+						{
+							"name": "tags",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "lobbies_listed",
+					"arguments": [
+						{
+							"name": "lobbies",
+							"type": "typedarray::LobbyInfo"
+						}
+					]
+				},
+				{
+					"name": "peer_joined",
+					"arguments": [
+						{
+							"name": "peer",
+							"type": "LobbyPeer"
+						}
+					]
+				},
+				{
+					"name": "peer_reconnected",
+					"arguments": [
+						{
+							"name": "peer",
+							"type": "LobbyPeer"
+						}
+					]
+				},
+				{
+					"name": "peer_left",
+					"arguments": [
+						{
+							"name": "peer",
+							"type": "LobbyPeer"
+						},
+						{
+							"name": "kicked",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "peer_disconnected",
+					"arguments": [
+						{
+							"name": "peer",
+							"type": "LobbyPeer"
+						}
+					]
+				},
+				{
+					"name": "peer_messaged",
+					"arguments": [
+						{
+							"name": "peer",
+							"type": "LobbyPeer"
+						},
+						{
+							"name": "chat_message",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "peer_ready",
+					"arguments": [
+						{
+							"name": "peer",
+							"type": "LobbyPeer"
+						},
+						{
+							"name": "is_ready",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "log_updated",
+					"arguments": [
+						{
+							"name": "command",
+							"type": "String"
+						},
+						{
+							"name": "logs",
+							"type": "String"
+						}
+					]
+				}
+			],
+			"properties": [
+				{
+					"type": "String",
+					"name": "server_url",
+					"setter": "set_server_url",
+					"getter": "get_server_url"
+				},
+				{
+					"type": "String",
+					"name": "reconnection_token",
+					"setter": "set_reconnection_token",
+					"getter": "get_reconnection_token"
+				},
+				{
+					"type": "String",
+					"name": "game_id",
+					"setter": "set_game_id",
+					"getter": "get_game_id"
+				},
+				{
+					"type": "bool",
+					"name": "connected",
+					"getter": "get_connected"
+				},
+				{
+					"type": "LobbyInfo",
+					"name": "lobby",
+					"getter": "get_lobby"
+				},
+				{
+					"type": "LobbyPeer",
+					"name": "peer",
+					"getter": "get_peer"
+				},
+				{
+					"type": "typedarray::LobbyPeer",
+					"name": "peers",
+					"getter": "get_peers"
+				},
+				{
+					"type": "Dictionary",
+					"name": "host_data",
+					"getter": "get_host_data"
+				},
+				{
+					"type": "Dictionary",
+					"name": "peer_data",
+					"getter": "get_peer_data"
+				}
+			]
+		},
+		{
+			"name": "LobbyInfo",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "Resource",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "get_host",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_max_players",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3905245786,
+					"return_value": {
+						"type": "int",
+						"meta": "int32"
+					}
+				},
+				{
+					"name": "is_sealed",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "is_password_protected",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "get_id",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_lobby_name",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_players",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3905245786,
+					"return_value": {
+						"type": "int",
+						"meta": "int32"
+					}
+				},
+				{
+					"name": "get_tags",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3102165223,
+					"return_value": {
+						"type": "Dictionary"
+					}
+				},
+				{
+					"name": "get_data",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3102165223,
+					"return_value": {
+						"type": "Dictionary"
+					}
+				}
+			],
+			"properties": [
+				{
+					"type": "String",
+					"name": "id",
+					"getter": "get_id"
+				},
+				{
+					"type": "String",
+					"name": "tags",
+					"getter": "get_tags"
+				},
+				{
+					"type": "Dictionary",
+					"name": "data",
+					"getter": "get_data"
+				},
+				{
+					"type": "String",
+					"name": "lobby_name",
+					"getter": "get_lobby_name"
+				},
+				{
+					"type": "int",
+					"name": "players",
+					"getter": "get_players"
+				},
+				{
+					"type": "String",
+					"name": "host",
+					"getter": "get_host"
+				},
+				{
+					"type": "int",
+					"name": "max_players",
+					"getter": "get_max_players"
+				},
+				{
+					"type": "bool",
+					"name": "sealed",
+					"getter": "is_sealed"
+				},
+				{
+					"type": "bool",
+					"name": "password_protected",
+					"getter": "is_password_protected"
+				}
+			]
+		},
+		{
+			"name": "LobbyPeer",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "Resource",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "get_id",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_user_data",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3102165223,
+					"return_value": {
+						"type": "Dictionary"
+					}
+				},
+				{
+					"name": "is_ready",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "is_disconnected",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "get_data",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3102165223,
+					"return_value": {
+						"type": "Dictionary"
+					}
+				},
+				{
+					"name": "get_order_id",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3905245786,
+					"return_value": {
+						"type": "int",
+						"meta": "int32"
+					}
+				}
+			],
+			"properties": [
+				{
+					"type": "String",
+					"name": "id",
+					"getter": "get_id"
+				},
+				{
+					"type": "Dictionary",
+					"name": "user_data",
+					"getter": "get_user_data"
+				},
+				{
+					"type": "bool",
+					"name": "disconnected",
+					"getter": "is_disconnected"
+				},
+				{
+					"type": "bool",
+					"name": "ready",
+					"getter": "is_ready"
+				},
+				{
+					"type": "Dictionary",
+					"name": "data",
+					"getter": "get_data"
+				},
+				{
+					"type": "int",
+					"name": "order_id",
+					"getter": "get_order_id"
+				}
+			]
+		},
+		{
+			"name": "LobbyResponse",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "RefCounted",
+			"api_type": "core",
+			"signals": [
+				{
+					"name": "finished",
+					"arguments": [
+						{
+							"name": "result",
+							"type": "LobbyResult"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "LobbyResult",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "RefCounted",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "has_error",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "get_error",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				}
+			],
+			"properties": [
+				{
+					"type": "String",
+					"name": "error",
+					"getter": "get_error"
+				}
+			]
+		},
+		{
+			"name": "LoginClient",
+			"is_refcounted": false,
+			"is_instantiable": true,
+			"inherits": "BlaziumClient",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "request_login_info",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1090734509,
+					"return_value": {
+						"type": "LoginResponse"
+					},
+					"arguments": [
+						{
+							"name": "login_type",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "set_server_url",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "server_url",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_server_url",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "set_game_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "game_id",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_game_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_connected",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2240911060,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "set_override_discord_path",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "override_discord_path",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_override_discord_path",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "connect_to_server",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1056366657,
+					"return_value": {
+						"type": "LoginResponse"
+					}
+				},
+				{
+					"name": "disconnect_from_server",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3218959716
+				}
+			],
+			"signals": [
+				{
+					"name": "log_updated",
+					"arguments": [
+						{
+							"name": "command",
+							"type": "String"
+						},
+						{
+							"name": "logs",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "disconnected_from_server",
+					"arguments": [
+						{
+							"name": "reason",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "connected_to_server"
+				},
+				{
+					"name": "received_jwt",
+					"arguments": [
+						{
+							"name": "jwt",
+							"type": "String"
+						},
+						{
+							"name": "type",
+							"type": "String"
+						},
+						{
+							"name": "access_token",
+							"type": "String"
+						}
+					]
+				}
+			],
+			"properties": [
+				{
+					"type": "String",
+					"name": "server_url",
+					"setter": "set_server_url",
+					"getter": "get_server_url"
+				},
+				{
+					"type": "String",
+					"name": "game_id",
+					"setter": "set_game_id",
+					"getter": "get_game_id"
+				},
+				{
+					"type": "bool",
+					"name": "connected",
+					"getter": "get_connected"
+				}
+			]
+		},
+		{
+			"name": "LoginResponse",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "RefCounted",
+			"api_type": "core",
+			"signals": [
+				{
+					"name": "finished",
+					"arguments": [
+						{
+							"name": "result",
+							"type": "LoginResult"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "LoginResult",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "RefCounted",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "get_login_url",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_login_type",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "has_error",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "get_error",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				}
+			],
+			"properties": [
+				{
+					"type": "String",
+					"name": "error",
+					"getter": "get_error"
+				},
+				{
+					"type": "String",
+					"name": "login_url",
+					"getter": "get_login_url"
+				},
+				{
+					"type": "String",
+					"name": "login_type",
+					"getter": "get_login_type"
+				}
+			]
+		},
+		{
 			"name": "MainLoop",
 			"is_refcounted": false,
 			"is_instantiable": true,
@@ -135548,6 +139548,293 @@
 							"type": "String"
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "MasterServerClient",
+			"is_refcounted": false,
+			"is_instantiable": true,
+			"inherits": "BlaziumClient",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "create_game",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 976731373,
+					"return_value": {
+						"type": "MasterServerResponse"
+					},
+					"arguments": [
+						{
+							"name": "game_server_info",
+							"type": "GameServerInfo"
+						}
+					]
+				},
+				{
+					"name": "update_game",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 976731373,
+					"return_value": {
+						"type": "MasterServerResponse"
+					},
+					"arguments": [
+						{
+							"name": "game_server_info",
+							"type": "GameServerInfo"
+						}
+					]
+				},
+				{
+					"name": "recent_games",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1841224375,
+					"return_value": {
+						"type": "MasterServerListResponse"
+					}
+				},
+				{
+					"name": "set_server_url",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "server_url",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_server_url",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "set_game_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "game_id",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_game_id",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "set_override_discord_path",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "override_discord_path",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_override_discord_path",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				}
+			],
+			"properties": [
+				{
+					"type": "String",
+					"name": "server_url",
+					"setter": "set_server_url",
+					"getter": "get_server_url"
+				},
+				{
+					"type": "String",
+					"name": "game_id",
+					"setter": "set_game_id",
+					"getter": "get_game_id"
+				}
+			]
+		},
+		{
+			"name": "MasterServerListResponse",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "RefCounted",
+			"api_type": "core",
+			"signals": [
+				{
+					"name": "finished",
+					"arguments": [
+						{
+							"name": "result",
+							"type": "MasterServerListResult"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "MasterServerListResult",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "RefCounted",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "has_error",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "get_error",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_results",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3995934104,
+					"return_value": {
+						"type": "typedarray::GameServerInfo"
+					}
+				}
+			],
+			"properties": [
+				{
+					"type": "String",
+					"name": "error",
+					"getter": "get_error"
+				},
+				{
+					"type": "GameServerInfo",
+					"name": "results",
+					"getter": "get_results"
+				}
+			]
+		},
+		{
+			"name": "MasterServerResponse",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "RefCounted",
+			"api_type": "core",
+			"signals": [
+				{
+					"name": "finished",
+					"arguments": [
+						{
+							"name": "result",
+							"type": "MasterServerResult"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "MasterServerResult",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "RefCounted",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "has_error",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "get_error",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_result",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 358505447,
+					"return_value": {
+						"type": "GameServerInfo"
+					}
+				}
+			],
+			"properties": [
+				{
+					"type": "String",
+					"name": "error",
+					"getter": "get_error"
+				},
+				{
+					"type": "GameServerInfo",
+					"name": "result",
+					"getter": "get_result"
 				}
 			]
 		},
@@ -145866,6 +150153,31 @@
 					}
 				},
 				{
+					"name": "set_navigation_map",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2722037293,
+					"arguments": [
+						{
+							"name": "navigation_map",
+							"type": "RID"
+						}
+					]
+				},
+				{
+					"name": "get_navigation_map",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2944877500,
+					"return_value": {
+						"type": "RID"
+					}
+				},
+				{
 					"name": "set_bidirectional",
 					"is_const": false,
 					"is_vararg": false,
@@ -146195,6 +150507,31 @@
 					"hash": 36873697,
 					"return_value": {
 						"type": "bool"
+					}
+				},
+				{
+					"name": "set_navigation_map",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2722037293,
+					"arguments": [
+						{
+							"name": "navigation_map",
+							"type": "RID"
+						}
+					]
+				},
+				{
+					"name": "get_navigation_map",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2944877500,
+					"return_value": {
+						"type": "RID"
 					}
 				},
 				{
@@ -147780,6 +152117,17 @@
 					"return_value": {
 						"type": "Array"
 					}
+				},
+				{
+					"name": "get_bounds",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3248174,
+					"return_value": {
+						"type": "Rect2"
+					}
 				}
 			],
 			"properties": [
@@ -148024,6 +152372,17 @@
 					"hash": 3995934104,
 					"return_value": {
 						"type": "Array"
+					}
+				},
+				{
+					"name": "get_bounds",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1021181044,
+					"return_value": {
+						"type": "AABB"
 					}
 				}
 			],
@@ -167208,7 +171567,7 @@
 					},
 					"arguments": [
 						{
-							"name": "pck_name",
+							"name": "pck_path",
 							"type": "String"
 						},
 						{
@@ -167272,6 +171631,294 @@
 							"default_value": "false"
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "POGRClient",
+			"is_refcounted": false,
+			"is_instantiable": true,
+			"inherits": "BlaziumClient",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "init",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2607034771,
+					"return_value": {
+						"type": "POGRResponse"
+					}
+				},
+				{
+					"name": "end",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2607034771,
+					"return_value": {
+						"type": "POGRResponse"
+					}
+				},
+				{
+					"name": "data",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3646189709,
+					"return_value": {
+						"type": "POGRResponse"
+					},
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "event",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3593940661,
+					"return_value": {
+						"type": "POGRResponse"
+					},
+					"arguments": [
+						{
+							"name": "event_name",
+							"type": "String"
+						},
+						{
+							"name": "event_data",
+							"type": "Dictionary"
+						},
+						{
+							"name": "event_flag",
+							"type": "String"
+						},
+						{
+							"name": "event_key",
+							"type": "String"
+						},
+						{
+							"name": "event_type",
+							"type": "String"
+						},
+						{
+							"name": "event_sub_type",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "logs",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 605222628,
+					"return_value": {
+						"type": "POGRResponse"
+					},
+					"arguments": [
+						{
+							"name": "tags",
+							"type": "Dictionary"
+						},
+						{
+							"name": "data",
+							"type": "Dictionary"
+						},
+						{
+							"name": "environment",
+							"type": "String"
+						},
+						{
+							"name": "log",
+							"type": "String"
+						},
+						{
+							"name": "service",
+							"type": "String"
+						},
+						{
+							"name": "severity",
+							"type": "String"
+						},
+						{
+							"name": "type",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "metrics",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1554274282,
+					"return_value": {
+						"type": "POGRResponse"
+					},
+					"arguments": [
+						{
+							"name": "tags",
+							"type": "Dictionary"
+						},
+						{
+							"name": "environment",
+							"type": "String"
+						},
+						{
+							"name": "metrics",
+							"type": "Dictionary"
+						},
+						{
+							"name": "service",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "monitor",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3646189709,
+					"return_value": {
+						"type": "POGRResponse"
+					},
+					"arguments": [
+						{
+							"name": "settings",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "get_client_id",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_build_id",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_pogr_url",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_session_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				}
+			]
+		},
+		{
+			"name": "POGRResponse",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "RefCounted",
+			"api_type": "core",
+			"signals": [
+				{
+					"name": "finished",
+					"arguments": [
+						{
+							"name": "result",
+							"type": "POGRResult"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "POGRResult",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "RefCounted",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "has_error",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "get_error",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_result",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				}
+			],
+			"properties": [
+				{
+					"type": "String",
+					"name": "error",
+					"getter": "get_error"
+				},
+				{
+					"type": "String",
+					"name": "result",
+					"getter": "get_result"
 				}
 			]
 		},
@@ -178849,6 +183496,39 @@
 					]
 				},
 				{
+					"name": "space_step",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1794382983,
+					"arguments": [
+						{
+							"name": "space",
+							"type": "RID"
+						},
+						{
+							"name": "delta",
+							"type": "float",
+							"meta": "float"
+						}
+					]
+				},
+				{
+					"name": "space_flush_queries",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2722037293,
+					"arguments": [
+						{
+							"name": "space",
+							"type": "RID"
+						}
+					]
+				},
+				{
 					"name": "space_set_param",
 					"is_const": false,
 					"is_vararg": false,
@@ -180552,6 +185232,41 @@
 					]
 				},
 				{
+					"name": "joint_set_enabled",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1265174801,
+					"arguments": [
+						{
+							"name": "joint",
+							"type": "RID"
+						},
+						{
+							"name": "enabled",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "joint_is_enabled",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 4155700596,
+					"return_value": {
+						"type": "bool"
+					},
+					"arguments": [
+						{
+							"name": "joint",
+							"type": "RID"
+						}
+					]
+				},
+				{
 					"name": "joint_set_param",
 					"is_const": false,
 					"is_vararg": false,
@@ -180929,6 +185644,28 @@
 							"type": "enum::PhysicsServer2D.ProcessInfo"
 						}
 					]
+				},
+				{
+					"name": "space_get_last_process_info",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 452167182,
+					"return_value": {
+						"type": "int",
+						"meta": "int32"
+					},
+					"arguments": [
+						{
+							"name": "space",
+							"type": "RID"
+						},
+						{
+							"name": "process_info",
+							"type": "enum::PhysicsServer2D.ProcessInfo"
+						}
+					]
 				}
 			]
 		},
@@ -181188,6 +185925,37 @@
 					"return_value": {
 						"type": "bool"
 					},
+					"arguments": [
+						{
+							"name": "space",
+							"type": "RID"
+						}
+					]
+				},
+				{
+					"name": "_space_step",
+					"is_const": false,
+					"is_static": false,
+					"is_vararg": false,
+					"is_virtual": true,
+					"arguments": [
+						{
+							"name": "space",
+							"type": "RID"
+						},
+						{
+							"name": "delta",
+							"type": "float",
+							"meta": "float"
+						}
+					]
+				},
+				{
+					"name": "_space_flush_queries",
+					"is_const": false,
+					"is_static": false,
+					"is_vararg": false,
+					"is_virtual": true,
 					"arguments": [
 						{
 							"name": "space",
@@ -182986,6 +187754,39 @@
 					]
 				},
 				{
+					"name": "_joint_set_enabled",
+					"is_const": false,
+					"is_static": false,
+					"is_vararg": false,
+					"is_virtual": true,
+					"arguments": [
+						{
+							"name": "joint",
+							"type": "RID"
+						},
+						{
+							"name": "enabled",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "_joint_is_enabled",
+					"is_const": true,
+					"is_static": false,
+					"is_vararg": false,
+					"is_virtual": true,
+					"return_value": {
+						"type": "bool"
+					},
+					"arguments": [
+						{
+							"name": "joint",
+							"type": "RID"
+						}
+					]
+				},
+				{
 					"name": "_joint_set_param",
 					"is_const": false,
 					"is_static": false,
@@ -183387,6 +188188,27 @@
 						"meta": "int32"
 					},
 					"arguments": [
+						{
+							"name": "process_info",
+							"type": "enum::PhysicsServer2D.ProcessInfo"
+						}
+					]
+				},
+				{
+					"name": "_space_get_last_process_info",
+					"is_const": false,
+					"is_static": false,
+					"is_vararg": false,
+					"is_virtual": true,
+					"return_value": {
+						"type": "int",
+						"meta": "int32"
+					},
+					"arguments": [
+						{
+							"name": "space",
+							"type": "RID"
+						},
 						{
 							"name": "process_info",
 							"type": "enum::PhysicsServer2D.ProcessInfo"
@@ -184429,6 +189251,39 @@
 					"return_value": {
 						"type": "bool"
 					},
+					"arguments": [
+						{
+							"name": "space",
+							"type": "RID"
+						}
+					]
+				},
+				{
+					"name": "space_step",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1794382983,
+					"arguments": [
+						{
+							"name": "space",
+							"type": "RID"
+						},
+						{
+							"name": "delta",
+							"type": "float",
+							"meta": "float"
+						}
+					]
+				},
+				{
+					"name": "space_flush_queries",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2722037293,
 					"arguments": [
 						{
 							"name": "space",
@@ -186726,6 +191581,41 @@
 					]
 				},
 				{
+					"name": "joint_set_enabled",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1265174801,
+					"arguments": [
+						{
+							"name": "joint",
+							"type": "RID"
+						},
+						{
+							"name": "enabled",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "joint_is_enabled",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 4155700596,
+					"return_value": {
+						"type": "bool"
+					},
+					"arguments": [
+						{
+							"name": "joint",
+							"type": "RID"
+						}
+					]
+				},
+				{
 					"name": "joint_make_pin",
 					"is_const": false,
 					"is_vararg": false,
@@ -187406,6 +192296,28 @@
 							"type": "enum::PhysicsServer3D.ProcessInfo"
 						}
 					]
+				},
+				{
+					"name": "space_get_last_process_info",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2576518499,
+					"return_value": {
+						"type": "int",
+						"meta": "int32"
+					},
+					"arguments": [
+						{
+							"name": "space",
+							"type": "RID"
+						},
+						{
+							"name": "process_info",
+							"type": "enum::PhysicsServer3D.ProcessInfo"
+						}
+					]
 				}
 			]
 		},
@@ -187671,6 +192583,37 @@
 					"return_value": {
 						"type": "bool"
 					},
+					"arguments": [
+						{
+							"name": "space",
+							"type": "RID"
+						}
+					]
+				},
+				{
+					"name": "_space_step",
+					"is_const": false,
+					"is_static": false,
+					"is_vararg": false,
+					"is_virtual": true,
+					"arguments": [
+						{
+							"name": "space",
+							"type": "RID"
+						},
+						{
+							"name": "delta",
+							"type": "float",
+							"meta": "float"
+						}
+					]
+				},
+				{
+					"name": "_space_flush_queries",
+					"is_const": false,
+					"is_static": false,
+					"is_vararg": false,
+					"is_virtual": true,
 					"arguments": [
 						{
 							"name": "space",
@@ -189999,6 +194942,39 @@
 					]
 				},
 				{
+					"name": "_joint_set_enabled",
+					"is_const": false,
+					"is_static": false,
+					"is_vararg": false,
+					"is_virtual": true,
+					"arguments": [
+						{
+							"name": "joint",
+							"type": "RID"
+						},
+						{
+							"name": "enabled",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "_joint_is_enabled",
+					"is_const": true,
+					"is_static": false,
+					"is_vararg": false,
+					"is_virtual": true,
+					"return_value": {
+						"type": "bool"
+					},
+					"arguments": [
+						{
+							"name": "joint",
+							"type": "RID"
+						}
+					]
+				},
+				{
 					"name": "_joint_make_pin",
 					"is_const": false,
 					"is_static": false,
@@ -190739,6 +195715,27 @@
 						"meta": "int32"
 					},
 					"arguments": [
+						{
+							"name": "process_info",
+							"type": "enum::PhysicsServer3D.ProcessInfo"
+						}
+					]
+				},
+				{
+					"name": "_space_get_last_process_info",
+					"is_const": false,
+					"is_static": false,
+					"is_vararg": false,
+					"is_virtual": true,
+					"return_value": {
+						"type": "int",
+						"meta": "int32"
+					},
+					"arguments": [
+						{
+							"name": "space",
+							"type": "RID"
+						},
 						{
 							"name": "process_info",
 							"type": "enum::PhysicsServer3D.ProcessInfo"
@@ -231817,6 +236814,23 @@
 					"is_virtual": true
 				},
 				{
+					"name": "_reload_scripts",
+					"is_const": false,
+					"is_static": false,
+					"is_vararg": false,
+					"is_virtual": true,
+					"arguments": [
+						{
+							"name": "scripts",
+							"type": "Array"
+						},
+						{
+							"name": "soft_reload",
+							"type": "bool"
+						}
+					]
+				},
+				{
 					"name": "_reload_tool_script",
 					"is_const": false,
 					"is_static": false,
@@ -231982,6 +236996,767 @@
 							"type": "String"
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "ScriptedLobbyClient",
+			"is_refcounted": false,
+			"is_instantiable": true,
+			"inherits": "BlaziumClient",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "set_server_url",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "server_url",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_server_url",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "set_reconnection_token",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "reconnection_token",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_reconnection_token",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "set_game_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "game_id",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_game_id",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2841200299,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "is_host",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2240911060,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "get_connected",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2240911060,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "get_lobby",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2759059446,
+					"return_value": {
+						"type": "LobbyInfo"
+					}
+				},
+				{
+					"name": "get_peer",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 899568590,
+					"return_value": {
+						"type": "LobbyPeer"
+					}
+				},
+				{
+					"name": "get_peers",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2915620761,
+					"return_value": {
+						"type": "typedarray::LobbyPeer"
+					}
+				},
+				{
+					"name": "get_peer_data",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2382534195,
+					"return_value": {
+						"type": "Dictionary"
+					}
+				},
+				{
+					"name": "set_override_discord_path",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 83702148,
+					"arguments": [
+						{
+							"name": "override_discord_path",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "get_override_discord_path",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "connect_to_lobby",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 402759040,
+					"return_value": {
+						"type": "LobbyResponse"
+					}
+				},
+				{
+					"name": "disconnect_from_lobby",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 402759040,
+					"return_value": {
+						"type": "LobbyResponse"
+					}
+				},
+				{
+					"name": "create_lobby",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1782804803,
+					"return_value": {
+						"type": "ViewLobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "title",
+							"type": "String"
+						},
+						{
+							"name": "sealed",
+							"type": "bool"
+						},
+						{
+							"name": "tags",
+							"type": "Dictionary",
+							"default_value": "{}"
+						},
+						{
+							"name": "max_players",
+							"type": "int",
+							"meta": "int32",
+							"default_value": "4"
+						},
+						{
+							"name": "password",
+							"type": "String",
+							"default_value": "\"\""
+						}
+					]
+				},
+				{
+					"name": "join_lobby",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3724509716,
+					"return_value": {
+						"type": "ViewLobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "lobby_id",
+							"type": "String"
+						},
+						{
+							"name": "password",
+							"type": "String",
+							"default_value": "\"\""
+						}
+					]
+				},
+				{
+					"name": "leave_lobby",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 402759040,
+					"return_value": {
+						"type": "LobbyResponse"
+					}
+				},
+				{
+					"name": "lobby_call",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3787630981,
+					"return_value": {
+						"type": "ScriptedLobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "method",
+							"type": "String"
+						},
+						{
+							"name": "args",
+							"type": "Array",
+							"default_value": "[]"
+						}
+					]
+				},
+				{
+					"name": "list_lobbies",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 402759040,
+					"return_value": {
+						"type": "LobbyResponse"
+					}
+				},
+				{
+					"name": "kick_peer",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3186253920,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "peer_id",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "send_chat_message",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3186253920,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "chat_message",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "set_lobby_ready",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 668034168,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "ready",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "add_lobby_tags",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3614381552,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "tags",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "del_lobby_tags",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2785274044,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "keys",
+							"type": "typedarray::String"
+						}
+					]
+				},
+				{
+					"name": "set_lobby_sealed",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 668034168,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "seal",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "add_peer_user_data",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3614381552,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "del_peer_user_data",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2785274044,
+					"return_value": {
+						"type": "LobbyResponse"
+					},
+					"arguments": [
+						{
+							"name": "keys",
+							"type": "typedarray::String"
+						}
+					]
+				}
+			],
+			"signals": [
+				{
+					"name": "connected_to_lobby",
+					"arguments": [
+						{
+							"name": "peer",
+							"type": "LobbyPeer"
+						},
+						{
+							"name": "reconnection_token",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "disconnected_from_lobby",
+					"arguments": [
+						{
+							"name": "reason",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "received_peer_user_data",
+					"arguments": [
+						{
+							"name": "peer",
+							"type": "LobbyPeer"
+						},
+						{
+							"name": "data",
+							"type": "Object"
+						}
+					]
+				},
+				{
+					"name": "lobby_notified",
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Object"
+						}
+					]
+				},
+				{
+					"name": "received_peer_data",
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Object"
+						},
+						{
+							"name": "to_peer",
+							"type": "LobbyPeer"
+						},
+						{
+							"name": "is_private",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "received_lobby_data",
+					"arguments": [
+						{
+							"name": "data",
+							"type": "Object"
+						}
+					]
+				},
+				{
+					"name": "lobby_created",
+					"arguments": [
+						{
+							"name": "lobby",
+							"type": "LobbyInfo"
+						},
+						{
+							"name": "peers",
+							"type": "typedarray::LobbyPeer"
+						}
+					]
+				},
+				{
+					"name": "lobby_joined",
+					"arguments": [
+						{
+							"name": "lobby",
+							"type": "LobbyInfo"
+						},
+						{
+							"name": "peers",
+							"type": "typedarray::LobbyPeer"
+						}
+					]
+				},
+				{
+					"name": "lobby_left",
+					"arguments": [
+						{
+							"name": "kicked",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "lobby_sealed",
+					"arguments": [
+						{
+							"name": "sealed",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "lobby_tagged",
+					"arguments": [
+						{
+							"name": "tags",
+							"type": "Dictionary"
+						}
+					]
+				},
+				{
+					"name": "lobbies_listed",
+					"arguments": [
+						{
+							"name": "lobbies",
+							"type": "typedarray::LobbyInfo"
+						}
+					]
+				},
+				{
+					"name": "peer_joined",
+					"arguments": [
+						{
+							"name": "peer",
+							"type": "LobbyPeer"
+						}
+					]
+				},
+				{
+					"name": "peer_reconnected",
+					"arguments": [
+						{
+							"name": "peer",
+							"type": "LobbyPeer"
+						}
+					]
+				},
+				{
+					"name": "peer_left",
+					"arguments": [
+						{
+							"name": "peer",
+							"type": "LobbyPeer"
+						},
+						{
+							"name": "kicked",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "peer_disconnected",
+					"arguments": [
+						{
+							"name": "peer",
+							"type": "LobbyPeer"
+						}
+					]
+				},
+				{
+					"name": "peer_messaged",
+					"arguments": [
+						{
+							"name": "peer",
+							"type": "LobbyPeer"
+						},
+						{
+							"name": "chat_message",
+							"type": "String"
+						}
+					]
+				},
+				{
+					"name": "peer_ready",
+					"arguments": [
+						{
+							"name": "peer",
+							"type": "LobbyPeer"
+						},
+						{
+							"name": "is_ready",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "log_updated",
+					"arguments": [
+						{
+							"name": "command",
+							"type": "String"
+						},
+						{
+							"name": "logs",
+							"type": "String"
+						}
+					]
+				}
+			],
+			"properties": [
+				{
+					"type": "String",
+					"name": "server_url",
+					"setter": "set_server_url",
+					"getter": "get_server_url"
+				},
+				{
+					"type": "String",
+					"name": "reconnection_token",
+					"setter": "set_reconnection_token",
+					"getter": "get_reconnection_token"
+				},
+				{
+					"type": "String",
+					"name": "game_id",
+					"setter": "set_game_id",
+					"getter": "get_game_id"
+				},
+				{
+					"type": "bool",
+					"name": "connected",
+					"getter": "get_connected"
+				},
+				{
+					"type": "LobbyInfo",
+					"name": "lobby",
+					"getter": "get_lobby"
+				},
+				{
+					"type": "LobbyPeer",
+					"name": "peer",
+					"getter": "get_peer"
+				},
+				{
+					"type": "typedarray::LobbyPeer",
+					"name": "peers",
+					"getter": "get_peers"
+				},
+				{
+					"type": "Dictionary",
+					"name": "peer_data",
+					"getter": "get_peer_data"
+				}
+			]
+		},
+		{
+			"name": "ScriptedLobbyResponse",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "RefCounted",
+			"api_type": "core",
+			"signals": [
+				{
+					"name": "finished",
+					"arguments": [
+						{
+							"name": "result",
+							"type": "ScriptedLobbyResult"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "ScriptedLobbyResult",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "RefCounted",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "has_error",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "get_error",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_result",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1214101251,
+					"return_value": {
+						"type": "Variant"
+					}
+				}
+			],
+			"properties": [
+				{
+					"type": "String",
+					"name": "error",
+					"getter": "get_error"
 				}
 			]
 		},
@@ -240513,6 +246288,28 @@
 							"value": 2
 						}
 					]
+				},
+				{
+					"name": "CollapseMode",
+					"is_bitfield": false,
+					"values": [
+						{
+							"name": "COLLAPSE_NONE",
+							"value": 0
+						},
+						{
+							"name": "COLLAPSE_FIRST",
+							"value": 1
+						},
+						{
+							"name": "COLLAPSE_SECOND",
+							"value": 2
+						},
+						{
+							"name": "COLLAPSE_ALL",
+							"value": 3
+						}
+					]
 				}
 			],
 			"methods": [
@@ -240542,14 +246339,6 @@
 						"type": "int",
 						"meta": "int32"
 					}
-				},
-				{
-					"name": "clamp_split_offset",
-					"is_const": false,
-					"is_vararg": false,
-					"is_static": false,
-					"is_virtual": false,
-					"hash": 3218959716
 				},
 				{
 					"name": "set_collapsed",
@@ -240625,6 +246414,100 @@
 					"return_value": {
 						"type": "bool"
 					}
+				},
+				{
+					"name": "set_collapse_mode",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 460731385,
+					"arguments": [
+						{
+							"name": "mode",
+							"type": "enum::SplitContainer.CollapseMode"
+						}
+					]
+				},
+				{
+					"name": "get_collapse_mode",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3853120500,
+					"return_value": {
+						"type": "enum::SplitContainer.CollapseMode"
+					}
+				},
+				{
+					"name": "set_drag_area_highlight_in_editor",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2586408642,
+					"arguments": [
+						{
+							"name": "drag_area_highlight_in_editor",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "is_drag_area_highlight_in_editor_enabled",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "set_dragging_enabled",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2586408642,
+					"arguments": [
+						{
+							"name": "dragging_enabled",
+							"type": "bool"
+						}
+					]
+				},
+				{
+					"name": "is_dragging_enabled",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "get_drag_area_control",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2783021301,
+					"return_value": {
+						"type": "Control"
+					}
+				},
+				{
+					"name": "clamp_split_offset",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3218959716
 				}
 			],
 			"signals": [
@@ -240636,9 +246519,21 @@
 							"type": "int"
 						}
 					]
+				},
+				{
+					"name": "drag_started"
+				},
+				{
+					"name": "drag_ended"
 				}
 			],
 			"properties": [
+				{
+					"type": "bool",
+					"name": "dragging_enabled",
+					"setter": "set_dragging_enabled",
+					"getter": "is_dragging_enabled"
+				},
 				{
 					"type": "int",
 					"name": "split_offset",
@@ -240662,6 +246557,18 @@
 					"name": "vertical",
 					"setter": "set_vertical",
 					"getter": "is_vertical"
+				},
+				{
+					"type": "int",
+					"name": "collapse_mode",
+					"setter": "set_collapse_mode",
+					"getter": "get_collapse_mode"
+				},
+				{
+					"type": "bool",
+					"name": "drag_area_highlight_in_editor",
+					"setter": "set_drag_area_highlight_in_editor",
+					"getter": "is_drag_area_highlight_in_editor_enabled"
 				}
 			]
 		},
@@ -246560,6 +252467,31 @@
 					}
 				},
 				{
+					"name": "set_lcd_subpixel_layout",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1893246148,
+					"arguments": [
+						{
+							"name": "subpixel_layout",
+							"type": "enum::TextServer.FontLCDSubpixelLayout"
+						}
+					]
+				},
+				{
+					"name": "get_lcd_subpixel_layout",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 1912389403,
+					"return_value": {
+						"type": "enum::TextServer.FontLCDSubpixelLayout"
+					}
+				},
+				{
 					"name": "set_multichannel_signed_distance_field",
 					"is_const": false,
 					"is_vararg": false,
@@ -246812,6 +252744,12 @@
 					"name": "subpixel_positioning",
 					"setter": "set_subpixel_positioning",
 					"getter": "get_subpixel_positioning"
+				},
+				{
+					"type": "int",
+					"name": "lcd_subpixel_layout",
+					"setter": "set_lcd_subpixel_layout",
+					"getter": "get_lcd_subpixel_layout"
 				},
 				{
 					"type": "bool",
@@ -256701,6 +262639,41 @@
 					]
 				},
 				{
+					"name": "font_set_lcd_subpixel_layout",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 2980830814,
+					"arguments": [
+						{
+							"name": "font_rid",
+							"type": "RID"
+						},
+						{
+							"name": "lcd_subpixel_layout",
+							"type": "enum::TextServer.FontLCDSubpixelLayout"
+						}
+					]
+				},
+				{
+					"name": "font_get_lcd_subpixel_layout",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3925881174,
+					"return_value": {
+						"type": "enum::TextServer.FontLCDSubpixelLayout"
+					},
+					"arguments": [
+						{
+							"name": "font_rid",
+							"type": "RID"
+						}
+					]
+				},
+				{
 					"name": "font_set_disable_embedded_bitmaps",
 					"is_const": false,
 					"is_vararg": false,
@@ -261234,6 +267207,39 @@
 					"is_virtual": true,
 					"return_value": {
 						"type": "enum::TextServer.FontAntialiasing"
+					},
+					"arguments": [
+						{
+							"name": "font_rid",
+							"type": "RID"
+						}
+					]
+				},
+				{
+					"name": "_font_set_lcd_subpixel_layout",
+					"is_const": false,
+					"is_static": false,
+					"is_vararg": false,
+					"is_virtual": true,
+					"arguments": [
+						{
+							"name": "font_rid",
+							"type": "RID"
+						},
+						{
+							"name": "subpixel_layout",
+							"type": "enum::TextServer.FontLCDSubpixelLayout"
+						}
+					]
+				},
+				{
+					"name": "_font_get_lcd_subpixel_layout",
+					"is_const": true,
+					"is_static": false,
+					"is_vararg": false,
+					"is_virtual": true,
+					"return_value": {
+						"type": "enum::TextServer.FontLCDSubpixelLayout"
 					},
 					"arguments": [
 						{
@@ -268517,6 +274523,9 @@
 			"signals": [
 				{
 					"name": "fallback_changed"
+				},
+				{
+					"name": "icons_changed"
 				}
 			],
 			"properties": [
@@ -268551,6 +274560,13 @@
 					"getter": "get_fallback_stylebox"
 				}
 			]
+		},
+		{
+			"name": "ThirdPartyClient",
+			"is_refcounted": false,
+			"is_instantiable": false,
+			"inherits": "Node",
+			"api_type": "core"
 		},
 		{
 			"name": "Thread",
@@ -278232,6 +284248,43 @@
 					]
 				},
 				{
+					"name": "set_icon_overlay",
+					"is_const": false,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 666127730,
+					"arguments": [
+						{
+							"name": "column",
+							"type": "int",
+							"meta": "int32"
+						},
+						{
+							"name": "texture",
+							"type": "Texture2D"
+						}
+					]
+				},
+				{
+					"name": "get_icon_overlay",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3536238170,
+					"return_value": {
+						"type": "Texture2D"
+					},
+					"arguments": [
+						{
+							"name": "column",
+							"type": "int",
+							"meta": "int32"
+						}
+					]
+				},
+				{
 					"name": "set_icon_region",
 					"is_const": false,
 					"is_vararg": false,
@@ -283220,6 +289273,94 @@
 			"is_instantiable": true,
 			"inherits": "VideoStream",
 			"api_type": "core"
+		},
+		{
+			"name": "ViewLobbyResponse",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "RefCounted",
+			"api_type": "core",
+			"signals": [
+				{
+					"name": "finished",
+					"arguments": [
+						{
+							"name": "result",
+							"type": "ViewLobbyResult"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "ViewLobbyResult",
+			"is_refcounted": true,
+			"is_instantiable": true,
+			"inherits": "RefCounted",
+			"api_type": "core",
+			"methods": [
+				{
+					"name": "has_error",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 36873697,
+					"return_value": {
+						"type": "bool"
+					}
+				},
+				{
+					"name": "get_error",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 201670096,
+					"return_value": {
+						"type": "String"
+					}
+				},
+				{
+					"name": "get_peers",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 3995934104,
+					"return_value": {
+						"type": "typedarray::LobbyPeer"
+					}
+				},
+				{
+					"name": "get_lobby",
+					"is_const": true,
+					"is_vararg": false,
+					"is_static": false,
+					"is_virtual": false,
+					"hash": 111667471,
+					"return_value": {
+						"type": "LobbyInfo"
+					}
+				}
+			],
+			"properties": [
+				{
+					"type": "typedarray::LobbyPeer",
+					"name": "peers",
+					"getter": "get_peers"
+				},
+				{
+					"type": "LobbyInfo",
+					"name": "lobby",
+					"getter": "get_lobby"
+				},
+				{
+					"type": "String",
+					"name": "error",
+					"getter": "get_error"
+				}
+			]
 		},
 		{
 			"name": "Viewport",
@@ -304194,6 +310335,10 @@
 		{
 			"name": "Performance",
 			"type": "Performance"
+		},
+		{
+			"name": "JWT",
+			"type": "JWT"
 		},
 		{
 			"name": "TextServerManager",
