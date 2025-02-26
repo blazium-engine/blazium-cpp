@@ -6,9 +6,9 @@ This file contains functions for options and configuration for targeting the
 Windows platform
 
 ]=======================================================================]
-function(windows_options)
-    option(GODOTCPP_USE_STATIC_CPP "Link MinGW/MSVC C++ runtime libraries statically" ON)
-    option(GODOTCPP_DEBUG_CRT "Compile with MSVC's debug CRT (/MDd)" OFF)
+function( windows_options )
+    option( GODOTCPP_USE_STATIC_CPP "Link MinGW/MSVC C++ runtime libraries statically" ON )
+    option( GODOTCPP_DEBUG_CRT "Compile with MSVC's debug CRT (/MDd)" OFF )
 
     message(
         STATUS
@@ -16,16 +16,14 @@ function(windows_options)
         "\tFor more information please read godot-cpp/cmake/windows.cmake"
     )
 
-    set(CMAKE_MSVC_RUNTIME_LIBRARY
-        "MultiThreaded$<IF:$<BOOL:${GODOTCPP_DEBUG_CRT}>,DebugDLL,$<$<NOT:$<BOOL:${GODOTCPP_USE_STATIC_CPP}>>:DLL>>"
-        CACHE STRING
-        "Select the MSVC runtime library for use by compilers targeting the MSVC ABI."
-    )
+    set( CMAKE_MSVC_RUNTIME_LIBRARY
+            "MultiThreaded$<IF:$<BOOL:${GODOTCPP_DEBUG_CRT}>,DebugDLL,$<$<NOT:$<BOOL:${GODOTCPP_USE_STATIC_CPP}>>:DLL>>"
+            CACHE STRING "Select the MSVC runtime library for use by compilers targeting the MSVC ABI.")
 endfunction()
 
 #[===========================[ Target Generation ]===========================]
-function(windows_generate)
-    set(STATIC_CPP "$<BOOL:${GODOTCPP_USE_STATIC_CPP}>")
+function( windows_generate )
+    set( STATIC_CPP "$<BOOL:${GODOTCPP_USE_STATIC_CPP}>")
 
     set_target_properties(godot-cpp PROPERTIES PDB_OUTPUT_DIRECTORY "$<1:${CMAKE_SOURCE_DIR}/bin>")
 

@@ -109,58 +109,48 @@ endfunction()
 # Function to define all the options.
 function(godotcpp_options)
     #NOTE: platform is managed using toolchain files.
-
-    set(GODOTCPP_TARGET
-        "template_debug"
-        CACHE STRING
-        "Which target to generate. valid values are: template_debug, template_release, and editor"
-    )
-    set_property(CACHE GODOTCPP_TARGET PROPERTY STRINGS "template_debug;template_release;editor")
+    #NOTE: arch is managed by using toolchain files.
+    # Except for macos universal, which can be set by GODOTCPP_MACOS_UNIVERSAL=YES
 
     # Input from user for GDExtension interface header and the API JSON file
-    set(GODOTCPP_GDEXTENSION_DIR
-        "gdextension"
-        CACHE PATH
-        "Path to a custom directory containing GDExtension interface header and API JSON file ( /path/to/gdextension_dir )"
-    )
-    set(GODOTCPP_CUSTOM_API_FILE
-        ""
-        CACHE FILEPATH
-        "Path to a custom GDExtension API JSON file (takes precedence over `GODOTCPP_GDEXTENSION_DIR`) ( /path/to/custom_api_file )"
-    )
+    set( GODOTCPP_GDEXTENSION_DIR "gdextension" CACHE PATH
+            "Path to a custom directory containing GDExtension interface header and API JSON file ( /path/to/gdextension_dir )" )
+    set( GODOTCPP_CUSTOM_API_FILE "" CACHE FILEPATH
+            "Path to a custom GDExtension API JSON file (takes precedence over `GODOTCPP_GDEXTENSION_DIR`) ( /path/to/custom_api_file )")
 
     #TODO generate_bindings
 
-    option(GODOTCPP_GENERATE_TEMPLATE_GET_NODE "Generate a template version of the Node class's get_node. (ON|OFF)" ON)
+    option( GODOTCPP_GENERATE_TEMPLATE_GET_NODE
+            "Generate a template version of the Node class's get_node. (ON|OFF)" ON)
 
     #TODO build_library
 
-    set(GODOTCPP_PRECISION "single" CACHE STRING "Set the floating-point precision level (single|double)")
+    set( GODOTCPP_PRECISION "single" CACHE STRING
+            "Set the floating-point precision level (single|double)")
 
-    set(GODOTCPP_THREADS ON CACHE BOOL "Enable threading support")
+    set( GODOTCPP_THREADS ON CACHE BOOL "Enable threading support" )
 
     #TODO threads
     #TODO compiledb
     #TODO compiledb_file
 
-    set(GODOTCPP_BUILD_PROFILE "" CACHE PATH "Path to a file containing a feature build profile")
+    set( GODOTCPP_BUILD_PROFILE "" CACHE PATH
+            "Path to a file containing a feature build profile" )
 
-    set(GODOTCPP_USE_HOT_RELOAD "" CACHE BOOL "Enable the extra accounting required to support hot reload. (ON|OFF)")
+    set( GODOTCPP_USE_HOT_RELOAD "" CACHE BOOL
+            "Enable the extra accounting required to support hot reload. (ON|OFF)")
 
     # Disable exception handling. Godot doesn't use exceptions anywhere, and this
     # saves around 20% of binary size and very significant build time (GH-80513).
-    option(GODOTCPP_DISABLE_EXCEPTIONS "Force disabling exception handling code (ON|OFF)" ON)
+    option( GODOTCPP_DISABLE_EXCEPTIONS "Force disabling exception handling code (ON|OFF)" ON )
 
-    set(GODOTCPP_SYMBOL_VISIBILITY
-        "hidden"
-        CACHE STRING
-        "Symbols visibility on GNU platforms. Use 'auto' to apply the default value. (auto|visible|hidden)"
-    )
-    set_property(CACHE GODOTCPP_SYMBOL_VISIBILITY PROPERTY STRINGS "auto;visible;hidden")
+    set( GODOTCPP_SYMBOL_VISIBILITY "hidden" CACHE STRING
+            "Symbols visibility on GNU platforms. Use 'auto' to apply the default value. (auto|visible|hidden)")
+    set_property( CACHE GODOTCPP_SYMBOL_VISIBILITY PROPERTY STRINGS "auto;visible;hidden" )
 
     #TODO optimize
 
-    option(GODOTCPP_DEV_BUILD "Developer build with dev-only debugging code (DEV_ENABLED)" OFF)
+    option( GODOTCPP_DEV_BUILD "Developer build with dev-only debugging code (DEV_ENABLED)" OFF )
 
     #[[ debug_symbols
     Debug symbols are enabled by using the Debug or RelWithDebInfo build configurations.
@@ -175,11 +165,11 @@ function(godotcpp_options)
     ]]
 
     # FIXME These options are not present in SCons, and perhaps should be added there.
-    option(GODOTCPP_SYSTEM_HEADERS "Expose headers as SYSTEM." OFF)
-    option(GODOTCPP_WARNING_AS_ERROR "Treat warnings as errors" OFF)
+    option( GODOTCPP_SYSTEM_HEADERS "Expose headers as SYSTEM." OFF )
+    option( GODOTCPP_WARNING_AS_ERROR "Treat warnings as errors" OFF )
 
     # Enable Testing
-    option(GODOTCPP_ENABLE_TESTING "Enable the godot-cpp.test.<target> integration testing targets" OFF)
+    option( GODOTCPP_ENABLE_TESTING "Enable the godot-cpp.test.<target> integration testing targets" OFF )
 
     #[[ Target Platform Options ]]
     android_options()
@@ -213,7 +203,7 @@ function(godotcpp_generate)
         message("  eg. cmake --build . -j 7  ...")
     endif()
 
-    #[[ GODOT_SYMBOL_VISIBLITY
+    #[[ GODOTCPP_SYMBOL_VISIBLITY
     To match the SCons options, the allowed values are "auto", "visible", and "hidden"
     This effects the compiler flag_ -fvisibility=[default|internal|hidden|protected]
     The corresponding target option CXX_VISIBILITY_PRESET accepts the compiler values.
@@ -221,60 +211,60 @@ function(godotcpp_generate)
     TODO: It is probably worth a pull request which changes both to use the compiler values
     .. _flag:https://gcc.gnu.org/onlinedocs/gcc/Code-Gen-Options.html#index-fvisibility
     ]]
-    if(${GODOTCPP_SYMBOL_VISIBILITY} STREQUAL "auto" OR ${GODOTCPP_SYMBOL_VISIBILITY} STREQUAL "visible")
-        set(GODOTCPP_SYMBOL_VISIBILITY "default")
-    endif()
+    if( ${GODOTCPP_SYMBOL_VISIBILITY} STREQUAL "auto" OR ${GODOTCPP_SYMBOL_VISIBILITY} STREQUAL "visible" )
+        set( GODOTCPP_SYMBOL_VISIBILITY "default" )
+    endif ()
 
     # Setup variable to optionally mark headers as SYSTEM
-    set(GODOTCPP_SYSTEM_HEADERS_ATTRIBUTE "")
-    if(GODOTCPP_SYSTEM_HEADERS)
-        set(GODOTCPP_SYSTEM_HEADERS_ATTRIBUTE SYSTEM)
-    endif()
+    set( GODOTCPP_SYSTEM_HEADERS_ATTRIBUTE "")
+    if( GODOTCPP_SYSTEM_HEADERS)
+        set( GODOTCPP_SYSTEM_HEADERS_ATTRIBUTE SYSTEM)
+    endif ()
 
     #[[ Configure Binding Variables ]]
     # Generate Binding Parameters (True|False)
-    set(USE_TEMPLATE_GET_NODE "False")
-    if(GODOTCPP_GENERATE_TEMPLATE_GET_NODE)
-        set(USE_TEMPLATE_GET_NODE "True")
+    set( USE_TEMPLATE_GET_NODE "False" )
+    if( GODOTCPP_GENERATE_TEMPLATE_GET_NODE )
+        set( USE_TEMPLATE_GET_NODE "True" )
     endif()
 
     # Bits (32|64)
     math(EXPR BITS "${CMAKE_SIZEOF_VOID_P} * 8") # CMAKE_SIZEOF_VOID_P refers to target architecture.
 
     # API json File
-    set(GODOTCPP_GDEXTENSION_API_FILE "${GODOTCPP_GDEXTENSION_DIR}/extension_api.json")
-    if(GODOTCPP_CUSTOM_API_FILE) # User-defined override.
-        set(GODOTCPP_GDEXTENSION_API_FILE "${GODOTCPP_CUSTOM_API_FILE}")
+    set( GODOTCPP_GDEXTENSION_API_FILE "${GODOTCPP_GDEXTENSION_DIR}/extension_api.json")
+    if( GODOTCPP_CUSTOM_API_FILE )  # User-defined override.
+        set( GODOTCPP_GDEXTENSION_API_FILE "${GODOTCPP_CUSTOM_API_FILE}")
     endif()
 
     # Build Profile
-    if(GODOTCPP_BUILD_PROFILE)
-        message(STATUS "Using build profile to trim api file")
-        message("\tBUILD_PROFILE = '${GODOTCPP_BUILD_PROFILE}'")
-        message("\tAPI_SOURCE = '${GODOTCPP_GDEXTENSION_API_FILE}'")
+    if( GODOTCPP_BUILD_PROFILE )
+        message( STATUS "Using build profile to trim api file")
+        message(  "\tBUILD_PROFILE = '${GODOTCPP_BUILD_PROFILE}'")
+        message(  "\tAPI_SOURCE = '${GODOTCPP_GDEXTENSION_API_FILE}'")
         build_profile_generate_trimmed_api(
                 "${GODOTCPP_BUILD_PROFILE}"
                 "${GODOTCPP_GDEXTENSION_API_FILE}"
-                "${CMAKE_CURRENT_BINARY_DIR}/extension_api.json"
-        )
-        set(GODOTCPP_GDEXTENSION_API_FILE "${CMAKE_CURRENT_BINARY_DIR}/extension_api.json")
+                "${CMAKE_CURRENT_BINARY_DIR}/extension_api.json" )
+        set( GODOTCPP_GDEXTENSION_API_FILE "${CMAKE_CURRENT_BINARY_DIR}/extension_api.json" )
     endif()
 
-    message(STATUS "GODOTCPP_GDEXTENSION_API_FILE = '${GODOTCPP_GDEXTENSION_API_FILE}'")
+    message( STATUS "GODOTCPP_GDEXTENSION_API_FILE = '${GODOTCPP_GDEXTENSION_API_FILE}'")
 
     # generate the file list to use
     binding_generator_get_file_list( GENERATED_FILES_LIST
             "${GODOTCPP_GDEXTENSION_API_FILE}"
-            "${CMAKE_CURRENT_BINARY_DIR}"
-    )
+            "${CMAKE_CURRENT_BINARY_DIR}" )
 
     binding_generator_generate_bindings(
             "${GODOTCPP_GDEXTENSION_API_FILE}"
             "${USE_TEMPLATE_GET_NODE}"
             "${BITS}"
             "${GODOTCPP_PRECISION}"
-            "${CMAKE_CURRENT_BINARY_DIR}"
-    )
+            "${CMAKE_CURRENT_BINARY_DIR}" )
+
+    add_custom_target( godot-cpp.generate_bindings DEPENDS ${GENERATED_FILES_LIST} )
+    set_target_properties( godot-cpp.generate_bindings PROPERTIES FOLDER "godot-cpp" )
 
     ### Platform is derived from the toolchain target
     # See GeneratorExpressions PLATFORM_ID and CMAKE_SYSTEM_NAME
@@ -299,48 +289,101 @@ function(godotcpp_generate)
     endif()
 
     # Transform options into generator expressions
-    set(HOT_RELOAD-UNSET "$<STREQUAL:${GODOTCPP_USE_HOT_RELOAD},>")
+    set( HOT_RELOAD-UNSET "$<STREQUAL:${GODOTCPP_USE_HOT_RELOAD},>")
 
-    set(DISABLE_EXCEPTIONS "$<BOOL:${GODOTCPP_DISABLE_EXCEPTIONS}>")
+    set( DISABLE_EXCEPTIONS "$<BOOL:${GODOTCPP_DISABLE_EXCEPTIONS}>")
 
-    set(THREADS_ENABLED "$<BOOL:${GODOTCPP_THREADS}>")
+    set( THREADS_ENABLED "$<BOOL:${GODOTCPP_THREADS}>" )
 
     # GODOTCPP_DEV_BUILD
-    set(RELEASE_TYPES "Release;MinSizeRel")
-    get_property(IS_MULTI_CONFIG GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
-    if(IS_MULTI_CONFIG)
-        message(NOTICE "=> Default build type is Debug. For other build types add --config <type> to build command")
-    elseif(GODOTCPP_DEV_BUILD AND CMAKE_BUILD_TYPE IN_LIST RELEASE_TYPES)
-        message(
-            WARNING
-            "=> GODOTCPP_DEV_BUILD implies a Debug-like build but CMAKE_BUILD_TYPE is '${CMAKE_BUILD_TYPE}'"
-        )
-    endif()
-    set(IS_DEV_BUILD "$<BOOL:${GODOTCPP_DEV_BUILD}>")
+    set( RELEASE_TYPES "Release;MinSizeRel")
+    get_property( IS_MULTI_CONFIG GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG )
+    if( IS_MULTI_CONFIG )
+        message( NOTICE "=> Default build type is Debug. For other build types add --config <type> to build command")
+    elseif( GODOTCPP_DEV_BUILD AND CMAKE_BUILD_TYPE IN_LIST RELEASE_TYPES )
+        message( WARNING "=> GODOTCPP_DEV_BUILD implies a Debug-like build but CMAKE_BUILD_TYPE is '${CMAKE_BUILD_TYPE}'")
+    endif ()
+    set( IS_DEV_BUILD "$<BOOL:${GODOTCPP_DEV_BUILD}>")
 
     ### Define our godot-cpp library targets
     # Generator Expressions that rely on the target
     set(DEBUG_FEATURES "$<NOT:$<STREQUAL:${GODOTCPP_TARGET},template_release>>")
     set(HOT_RELOAD "$<IF:${HOT_RELOAD-UNSET},${DEBUG_FEATURES},$<BOOL:${GODOTCPP_USE_HOT_RELOAD}>>")
 
-    # Suffix
-    string(
-        CONCAT
-        GODOTCPP_SUFFIX
-        "$<1:.${SYSTEM_NAME}>"
-        "$<1:.${GODOTCPP_TARGET}>"
-        "$<${IS_DEV_BUILD}:.dev>"
-        "$<$<STREQUAL:${GODOTCPP_PRECISION},double>:.double>"
-        "$<1:.${ARCH_NAME}>"
-        # TODO IOS_SIMULATOR
-        "$<$<NOT:${THREADS_ENABLED}>:.nothreads>"
-    )
+        # Generator Expressions that rely on the target
+        set( DEBUG_FEATURES "$<NOT:$<STREQUAL:${TARGET_ALIAS},template_release>>" )
+        set( HOT_RELOAD "$<IF:${HOT_RELOAD-UNSET},${DEBUG_FEATURES},$<BOOL:${GODOTCPP_USE_HOT_RELOAD}>>" )
 
-    # the godot-cpp.* library targets
-    add_library(godot-cpp STATIC)
+        # Suffix
+        string( CONCAT GODOTCPP_SUFFIX
+                "$<1:.${SYSTEM_NAME}>"
+                "$<1:.${TARGET_ALIAS}>"
+                "$<${IS_DEV_BUILD}:.dev>"
+                "$<$<STREQUAL:${GODOTCPP_PRECISION},double>:.double>"
+                "$<1:.${ARCH_NAME}>"
+                # TODO IOS_SIMULATOR
+                "$<$<NOT:${THREADS_ENABLED}>:.nothreads>"
+        )
 
-    # Without adding this dependency to the binding generator, XCode will complain.
-    add_dependencies(godot-cpp generate_bindings)
+        # the godot-cpp.* library targets
+        add_library( ${TARGET_NAME} STATIC EXCLUDE_FROM_ALL )
+        add_library( godot-cpp::${TARGET_ALIAS} ALIAS ${TARGET_NAME} )
+
+        file( GLOB_RECURSE GODOTCPP_SOURCES LIST_DIRECTORIES NO CONFIGURE_DEPENDS src/*.cpp )
+
+        target_sources( ${TARGET_NAME}
+                PRIVATE
+                ${GODOTCPP_SOURCES}
+                ${GENERATED_FILES_LIST}
+        )
+
+        target_include_directories( ${TARGET_NAME} ${GODOTCPP_SYSTEM_HEADERS_ATTRIBUTE} PUBLIC
+                include
+                ${CMAKE_CURRENT_BINARY_DIR}/gen/include
+                ${GODOTCPP_GDEXTENSION_DIR}
+        )
+
+        set_target_properties( ${TARGET_NAME}
+                PROPERTIES
+                CXX_STANDARD 17
+                CXX_EXTENSIONS OFF
+                CXX_VISIBILITY_PRESET ${GODOTCPP_SYMBOL_VISIBILITY}
+
+                COMPILE_WARNING_AS_ERROR ${GODOTCPP_WARNING_AS_ERROR}
+                POSITION_INDEPENDENT_CODE ON
+                BUILD_RPATH_USE_ORIGIN ON
+
+                PREFIX      "lib"
+                OUTPUT_NAME "${PROJECT_NAME}${GODOTCPP_SUFFIX}"
+
+                ARCHIVE_OUTPUT_DIRECTORY "$<1:${CMAKE_BINARY_DIR}/bin>"
+
+                # Things that are handy to know for dependent targets
+                GODOTCPP_PLATFORM  "${SYSTEM_NAME}"
+                GODOTCPP_TARGET    "${TARGET_ALIAS}"
+                GODOTCPP_ARCH      "${ARCH_NAME}"
+                GODOTCPP_PRECISION "${GODOTCPP_PRECISION}"
+                GODOTCPP_SUFFIX    "${GODOTCPP_SUFFIX}"
+
+                # Some IDE's respect this property to logically group targets
+                FOLDER "godot-cpp"
+        )
+
+        if( CMAKE_SYSTEM_NAME STREQUAL Android )
+            android_generate()
+        elseif ( CMAKE_SYSTEM_NAME STREQUAL iOS )
+            ios_generate()
+        elseif ( CMAKE_SYSTEM_NAME STREQUAL Linux )
+            linux_generate()
+        elseif ( CMAKE_SYSTEM_NAME STREQUAL Darwin )
+            macos_generate()
+        elseif ( CMAKE_SYSTEM_NAME STREQUAL Emscripten )
+            web_generate()
+        elseif ( CMAKE_SYSTEM_NAME STREQUAL Windows )
+            windows_generate()
+        endif ()
+
+    endforeach ()
 
     # Added for backwards compatibility with prior cmake solution so that builds dont immediately break
     # from a missing target.

@@ -107,14 +107,13 @@ function(
     # Strip newlines and whitespace to make it a one-liner.
     string(REGEX REPLACE "\n *" " " PYTHON_SCRIPT "${PYTHON_SCRIPT}")
 
-    add_custom_command(
-        OUTPUT ${GENERATED_FILES_LIST}
-        COMMAND "${Python3_EXECUTABLE}" "-c" "${PYTHON_SCRIPT}"
-        VERBATIM
-        WORKING_DIRECTORY ${godot-cpp_SOURCE_DIR}
-        MAIN_DEPENDENCY ${GODOTCPP_GDEXTENSION_API_FILE}
-        DEPENDS ${godot-cpp_SOURCE_DIR}/binding_generator.py
-        COMMENT "Generating bindings"
+    add_custom_command(OUTPUT ${GENERATED_FILES_LIST}
+            COMMAND "${Python3_EXECUTABLE}" "-c" "${PYTHON_SCRIPT}"
+            VERBATIM
+            WORKING_DIRECTORY ${godot-cpp_SOURCE_DIR}
+            MAIN_DEPENDENCY ${GODOTCPP_GDEXTENSION_API_FILE}
+            DEPENDS ${godot-cpp_SOURCE_DIR}/binding_generator.py
+            COMMENT "Generating bindings"
     )
     add_custom_target(generate_bindings DEPENDS ${GENERATED_FILES_LIST})
     set_target_properties(generate_bindings PROPERTIES FOLDER "godot-cpp")
