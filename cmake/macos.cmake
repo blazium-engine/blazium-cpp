@@ -24,11 +24,11 @@ function(macos_options)
 endfunction()
 
 function(macos_generate)
-    target_compile_definitions(${TARGET_NAME} PUBLIC MACOS_ENABLED UNIX_ENABLED)
+    target_compile_definitions(godot-cpp PUBLIC MACOS_ENABLED UNIX_ENABLED)
 
-    target_link_options(${TARGET_NAME} PUBLIC -Wl,-undefined,dynamic_lookup)
+    target_link_options(godot-cpp PUBLIC -Wl,-undefined,dynamic_lookup)
 
-    target_link_libraries(${TARGET_NAME} INTERFACE ${COCOA_LIBRARY})
+    target_link_libraries(godot-cpp INTERFACE ${COCOA_LIBRARY})
 
     common_compiler_flags()
 endfunction()

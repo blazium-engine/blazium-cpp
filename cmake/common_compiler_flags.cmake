@@ -48,7 +48,7 @@ function(common_compiler_flags)
     # gersemi: off
     # These compiler options reflect what is in godot/SConstruct.
     target_compile_options(
-        ${TARGET_NAME}
+        godot-cpp
         PUBLIC
             # Disable exception handling. Godot doesn't use exceptions anywhere, and this
             # saves around 20% of binary size and very significant build time.
@@ -132,7 +132,7 @@ function(common_compiler_flags)
     )
 
     target_compile_definitions(
-        ${TARGET_NAME}
+        godot-cpp
         PUBLIC
             GDEXTENSION
 
@@ -149,7 +149,7 @@ function(common_compiler_flags)
     )
 
     target_link_options(
-        ${TARGET_NAME}
+        godot-cpp
         PUBLIC
             $<${DEBUG_SYMBOLS}:$<${IS_MSVC}:/DEBUG:FULL>>
 

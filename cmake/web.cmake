@@ -15,15 +15,10 @@ function(web_options)
 endfunction()
 
 function(web_generate)
-    target_compile_definitions(
-        ${TARGET_NAME}
-        PUBLIC #
-            WEB_ENABLED
-            UNIX_ENABLED
-    )
+    target_compile_definitions(godot-cpp PUBLIC WEB_ENABLED UNIX_ENABLED)
 
     target_compile_options(
-        ${TARGET_NAME}
+        godot-cpp
         PUBLIC #
             -sSIDE_MODULE
             -sSUPPORT_LONGJMP=wasm
@@ -31,7 +26,7 @@ function(web_generate)
     )
 
     target_link_options(
-        ${TARGET_NAME}
+        godot-cpp
         INTERFACE #
             -sWASM_BIGINT
             -sSUPPORT_LONGJMP=wasm

@@ -11,7 +11,7 @@ function(ios_options)
 endfunction()
 
 function(ios_generate)
-    target_compile_definitions(${TARGET_NAME} PUBLIC IOS_ENABLED UNIX_ENABLED)
+    target_compile_definitions(godot-cpp PUBLIC IOS_ENABLED UNIX_ENABLED)
 
     common_compiler_flags()
 endfunction()
