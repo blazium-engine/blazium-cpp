@@ -80,13 +80,7 @@ the notable differences.
 
 Testing Integration
 -------------------
-When consuming a third party CMake project into yours, an unfortunate side
-effect is that the targets of the consumed project appear in the list of
-available targets, and are by default included in the ALL meta target
-created by most build systems. For this reason, all the targets specified
-in godot-cpp are marked with the ``EXCLUDE_FROM_ALL`` tag to prevent
-unnecessary compilation. The testing targets ``godot-cpp.test.<target>``
-are also guarded by ``GODOTCPP_ENABLE_TESTING`` which is off by default.
+The testing target ``godot-cpp-test`` is guarded by ``GODOTCPP_ENABLE_TESTING`` which is off by default.
 
 To configure and build the godot-cpp project to enable the integration
 testing targets the command will look something like:
@@ -94,10 +88,8 @@ testing targets the command will look something like:
 .. code-block::
 
     # Assuming our current directory is the godot-cpp source root
-    mkdir cmake-build
-    cd cmake-build
-    cmake .. -DGODOTCPP_ENABLE_TESTING=YES
-    cmake --build . --target godot-cpp.test.template_debug
+    cmake -S . -B cmake-build -DGODOTCPP_ENABLE_TESTING=YES
+    cmake --build cmake-build --target godot-cpp-test
 
 Basic walkthrough
 -----------------
@@ -146,32 +138,13 @@ Basic walkthrough
         // Path to a custom directory containing GDExtension interface header and API JSON file ( /path/to/gdextension_dir )
         GODOTCPP_GDEXTENSION_DIR:PATH=gdextension
 
-        // Generate a template version of the Node class's get_node. (ON|OFF)
-        GODOTCPP_GENERATE_TEMPLATE_GET_NODE:BOOL=ON
-
         // Set the floating-point precision level (single|double)
         GODOTCPP_PRECISION:STRING=single
-
-        // Symbols visibility on GNU platforms. Use 'auto' to apply the default value. (auto|visible|hidden)
-        GODOTCPP_SYMBOL_VISIBILITY:STRING=hidden
-
-        // Expose headers as SYSTEM.
-        GODOTCPP_SYSTEM_HEADERS:BOOL=ON
 
         // Enable the extra accounting required to support hot reload. (ON|OFF)
         GODOTCPP_USE_HOT_RELOAD:BOOL=
 
-        // Treat warnings as errors
-        GODOTCPP_WARNING_AS_ERROR:BOOL=OFF
-
-
-.. topic:: Compiling
-
-   A target and a configuration is required, as the default ``all`` target does
-   not include anything and when using multi-config generators like ``Ninja
-   Multi-Config``, ``Visual Studio *`` or ``Xcode`` the build configuration
-   needs to be specified at build time. Build in Release mode unless you need
-   debug symbols.
+.. topic:: Configure the build
 
     .. code-block::
 
@@ -215,10 +188,8 @@ needs to be specified at build time ie ``--config Release``
 .. code-block::
 
     # Assuming our current directory is the godot-cpp source root
-    mkdir build-msvc
-    cd build-msvc
-    cmake .. -DGODOTCPP_ENABLE_TESTING=YES
-    cmake --build . -t godot-cpp.test.template_debug --config Debug
+    cmake -S . -B cmake-build -DGODOTCPP_ENABLE_TESTING=YES
+    cmake --build cmake-build -t godot-cpp-test --config Release
 
 
 MSys2/clang64, "Ninja" - Debug
@@ -233,10 +204,8 @@ Using the msys2/clang64 shell
 .. code-block::
 
     # Assuming our current directory is the godot-cpp source root
-    mkdir build-clang
-    cd build-clang
-    cmake .. -G"Ninja" -DGODOTCPP_ENABLE_TESTING=YES -DCMAKE_BUILD_TYPE=Debug
-    cmake --build . -t godot-cpp.test.template_debug
+    cmake -S . -B cmake-build -G"Ninja" -DGODOTCPP_ENABLE_TESTING=YES -DCMAKE_BUILD_TYPE=Release
+    cmake --build cmake-build -t godot-cpp-test
 
 MSys2/clang64, "Ninja Multi-Config" - dev_build, Debug Symbols
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -250,10 +219,8 @@ Using the msys2/clang64 shell
 .. code-block::
 
     # Assuming our current directory is the godot-cpp source root
-    mkdir build-clang
-    cd build-clang
-    cmake .. -G"Ninja Multi-Config" -DGODOTCPP_ENABLE_TESTING=YES -DGODOTCPP_DEV_BUILD:BOOL=ON
-    cmake --build . -t godot-cpp.test.template_debug --config Debug
+    cmake -S . -B cmake-build -G"Ninja Multi-Config" -DGODOTCPP_ENABLE_TESTING=YES -DGODOTCPP_DEV_BUILD:BOOL=ON
+    cmake --build cmake-build -t godot-cpp-test --config Debug
 
 Emscripten for web platform
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
