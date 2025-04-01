@@ -8,7 +8,7 @@ env:
   # Only used for the cache key. Increment version to force clean build.
   BLAZIUM_BASE_BRANCH: blazium-dev
   # Used to select the version of Godot to run the tests with.
-  BLAZIUM_TEST_VERSION: 0.1.184
+  BLAZIUM_TEST_VERSION: 0.4.90
   # Use UTF-8 on Linux.
   LANG: en_US.UTF-8
   LC_ALL: en_US.UTF-8
@@ -188,7 +188,7 @@ jobs:
       - name: Download requested Godot version for testing
         if: matrix.run-tests && env.BLAZIUM_TEST_VERSION != 'blazium-dev'
         run: |
-          wget "https://cdn.blazium.app/nightly/${BLAZIUM_TEST_VERSION}/BlaziumEditor_v${BLAZIUM_TEST_VERSION}_linux.x86_64.zip" -O Blazium.zip
+          wget "https://cdn.blazium.app/release/${BLAZIUM_TEST_VERSION}/BlaziumEditor_v${BLAZIUM_TEST_VERSION}_linux.x86_64.zip" -O Blazium.zip
           unzip -a Blazium.zip
           chmod +x "BlaziumEditor_v${BLAZIUM_TEST_VERSION}_linux.x86_64"
           echo "BLAZIUM=$(pwd)/BlaziumEditor_v${BLAZIUM_TEST_VERSION}_linux.x86_64" >> $GITHUB_ENV
