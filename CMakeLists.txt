@@ -52,11 +52,13 @@ if(NOT PROJECT_NAME)
 endif()
 
 # Define our project.
-project( godot-cpp
-        VERSION 4.3
-        DESCRIPTION "C++ bindings for the Godot Engine's GDExtensions API."
-        HOMEPAGE_URL "https://github.com/blazium-engine/blazium-cpp"
-        LANGUAGES CXX)
+project(
+    godot-cpp
+    VERSION 4.3
+    DESCRIPTION "C++ bindings for the Godot Engine's GDExtensions API."
+    HOMEPAGE_URL "https://github.com/blazium-engine/blazium-cpp"
+    LANGUAGES CXX
+)
 
 compiler_detection()
 godotcpp_generate()

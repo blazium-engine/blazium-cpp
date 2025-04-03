@@ -5,8 +5,7 @@
 		"version_patch": 0,
 		"version_status": "stable",
 		"version_build": "custom_build",
-		"version_full_name": "Blazium Engine v0.3.0.nightly (4.3.stable.custom_build)",
-		"precision": "single"
+		"version_full_name": "Blazium Engine v0.3.0.nightly (4.3.stable.custom_build)"
 	},
 	"builtin_class_sizes": [
 		{

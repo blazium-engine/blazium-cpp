@@ -15,7 +15,7 @@ runs:
       uses: actions/cache/restore@v4
       with:
         path: ${{ inputs.scons-cache }}
-        key: ${{ inputs.cache-name }}-${{ env.BLAZIUM_BASE_BRANCH} }-${{ github.ref }}-${{ github.sha }}
+        key: ${{ inputs.cache-name }}-${{ env.BLAZIUM_BASE_BRANCH }}-${{ github.ref }}-${{ github.sha }}
         restore-keys: |
           ${{ inputs.cache-name }}-${{ env.BLAZIUM_BASE_BRANCH }}-${{ github.ref }}-${{ github.sha }}
           ${{ inputs.cache-name }}-${{ env.BLAZIUM_BASE_BRANCH }}-${{ github.ref }}

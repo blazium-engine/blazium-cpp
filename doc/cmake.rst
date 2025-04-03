@@ -32,12 +32,28 @@ source code with debug symbols enabled, and compiling a Godot extension with
 debug features enabled. The two concepts are not mutually inclusive.
 
 - debug_features
-	Enables a pre-processor definition to selectively compile code to help
-	users of a Godot extension with their own project.
+    Enables a pre-processor definition to selectively compile code to help
+    users of a Godot extension with their own project.
+
+    debug features are enabled in editor and template_debug builds, which can be specified during the configure phase like so
+
+	``cmake -S . -B cmake-build -DGODOTCPP_TARGET=<target choice>``
 
 - Debug
-	Sets compiler flags so that debug symbols are generated to help godot
-	extension developers debug their extension.
+    Sets compiler flags so that debug symbols are generated to help godot
+    extension developers debug their extension.
+
+    ``Debug`` is the default build type for CMake projects, to select another it depends on the generator used
+
+    For single configuration generators, add to the configure command:
+
+	``-DCMAKE_BUILD_TYPE=<type>``
+
+    For multi-config generators add to the build command:
+
+	``--config <type>``
+
+    where ``<type>`` is one of ``Debug``, ``Release``, ``RelWithDebInfo``, ``MinSizeRel``
 
 
 SCons Deviations
@@ -315,23 +331,23 @@ Windows Host
 * `LLVM <https://llvm.org/>`_
 * `LLVM-MinGW <https://github.com/mstorsjo/llvm-mingw/releases>`_
 
-	* aarch64-w64-mingw32
-	* armv7-w64-mingw32
-	* i686-w64-mingw32
-	* x86_64-w64-mingw32
+    * aarch64-w64-mingw32
+    * armv7-w64-mingw32
+    * i686-w64-mingw32
+    * x86_64-w64-mingw32
 
 * `AndroidSDK <https://developer.android.com/studio/#command-tools>`_
 * `Emscripten <https://emscripten.org/>`_
 * `MinGW-W64-builds <https://github.com/niXman/mingw-builds-binaries/releases>`_
 * `Jetbrains-CLion <https://www.jetbrains.com/clion/>`_
 
-	Jetbrains builtin compiler is just the MingW64 above.
+    Jetbrains builtin compiler is just the MingW64 above.
 
 * `MSYS2 <https://www.msys2.org/>`_
-	Necessary reading about MSYS2 `environments <https://www.msys2.org/docs/environments/>`_
+    Necessary reading about MSYS2 `environments <https://www.msys2.org/docs/environments/>`_
 
-	* ucrt64
-	* clang64
-	* mingw32
-	* mingw64
-	* clangarm64
+    * ucrt64
+    * clang64
+    * mingw32
+    * mingw64
+    * clangarm64
